@@ -99,7 +99,7 @@ const NavLink = ({ to, children }: { to: string; children: React.ReactNode }) =>
 
 export default function Navbar(): JSX.Element {
   return (
-    <nav className={styles.navbar}>
+    <nav className={`${styles.navbar} navbar`}>
       <div className={styles.navbarInner}>
         {/* Logo & Brand */}
         <Link to="/" className={styles.brand}>
