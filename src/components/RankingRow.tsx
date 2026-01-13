@@ -34,7 +34,6 @@ export default function RankingRow({
         )}
         <span className="ranking-model-name">
           {model}
-          {isNew && <span className="new-badge">NEW</span>}
         </span>
       </div>
       <div className="ranking-bar-container">
@@ -44,16 +43,7 @@ export default function RankingRow({
             width: `${barWidth}%`,
             backgroundColor: barColor,
           }}
-        >
-          <div
-            className="error-bar"
-            style={{
-              '--error-width': `${Math.max(3, error * 2)}%`,
-            } as React.CSSProperties}
-          >
-            <div className="error-bar-whisker" />
-          </div>
-        </div>
+        />
       </div>
       <div className="ranking-score">
         <span className="score-value">{score.toFixed(2)}</span>
