@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- White background with dark border -->
+  <rect x="1" y="1" width="30" height="30" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
   <!-- Θ (theta): ellipse with horizontal bar -->
   <ellipse cx="9" cy="16" rx="6" ry="8" stroke="#1a1a1a" stroke-width="2" fill="none"/>
   <line x1="3" y1="16" x2="15" y2="16" stroke="#1a1a1a" stroke-width="1.5"/>
