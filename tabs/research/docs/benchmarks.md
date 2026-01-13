@@ -8,9 +8,9 @@ hide_table_of_contents: true
 import BenchmarkCard from '@site/tabs/research/components/BenchmarkCard';
 
 <div className="research-tabs">
-  <a href="/ot_hub/research/dashboard" className="research-tab">Dashboard</a>
-  <a href="/ot_hub/research/benchmarks" className="research-tab active">Benchmarks</a>
-  <a href="/ot_hub/research/models" className="research-tab">Models</a>
+  <a href="/dashboards" className="research-tab">Dashboard</a>
+  <a href="/benchmarks" className="research-tab active">Benchmarks</a>
+  <a href="/models" className="research-tab">Models</a>
 </div>
 
 # Benchmarks

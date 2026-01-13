@@ -38,7 +38,7 @@ const config: Config = {
       {
         id: 'research',
         path: 'tabs/research/docs',
-        routeBasePath: 'research',
+        routeBasePath: '',
         sidebarPath: false,
         editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
       },
@@ -116,15 +116,15 @@ const config: Config = {
           position: 'left',
           items: [
             {
-              to: '/research/dashboard',
+              to: '/dashboards',
               label: 'Dashboard',
             },
             {
-              to: '/research/benchmarks',
+              to: '/benchmarks',
               label: 'Benchmarks',
             },
             {
-              to: '/research/models',
+              to: '/models',
               label: 'Models',
             },
           ],

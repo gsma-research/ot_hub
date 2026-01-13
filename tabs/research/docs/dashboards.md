@@ -1,5 +1,5 @@
 ---
-id: dashboard
+id: dashboards
 title: Dashboard
 sidebar_label: Dashboard
 ---
@@ -8,9 +8,9 @@ import TelcoCapabilityIndex from '@site/tabs/research/components/TelcoCapability
 import TCIFaq from '@site/tabs/research/components/TCIFaq';
 
 <div className="research-tabs">
-  <a href="/ot_hub/research/dashboard" className="research-tab active">Dashboard</a>
-  <a href="/ot_hub/research/benchmarks" className="research-tab">Benchmarks</a>
-  <a href="/ot_hub/research/models" className="research-tab">Models</a>
+  <a href="/dashboards" className="research-tab active">Dashboard</a>
+  <a href="/benchmarks" className="research-tab">Benchmarks</a>
+  <a href="/models" className="research-tab">Models</a>
 </div>
 
 # AI Benchmarking

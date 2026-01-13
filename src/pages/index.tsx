@@ -21,7 +21,7 @@ function HeroSection(): JSX.Element {
           <Link to="/leaderboard" className={styles.ctaPrimary}>
             View Leaderboard
           </Link>
-          <Link to="/research/dashboard" className={styles.ctaSecondary}>
+          <Link to="/dashboards" className={styles.ctaSecondary}>
             Explore Research
           </Link>
         </div>
