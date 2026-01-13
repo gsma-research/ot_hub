@@ -111,24 +111,24 @@ const ThetaLetter = () => (
   </svg>
 );
 
-// ΘT Monogram SVG Component - Theta + T with GSMA accent
+// ΘT Monogram SVG Component - matches ThetaLetter proportions
 const OTMonogram = () => (
   <svg
     className={styles.monogramSvg}
-    viewBox="0 0 40 40"
+    viewBox="0 0 44 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     aria-label="Open Telco"
     role="img"
   >
-    {/* Θ: Greek Theta (circle with horizontal line) */}
-    <circle cx="14" cy="20" r="9" stroke="currentColor" strokeWidth="3" fill="none"/>
-    <line x1="5" y1="20" x2="23" y2="20" stroke="currentColor" strokeWidth="2.5"/>
-    {/* T: Geometric letterform */}
-    <path d="M22 12 L38 12" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-    <path d="M30 12 L30 34" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
+    {/* Θ: Same ellipse proportions as ThetaLetter (rx:ry = 8:10) */}
+    <ellipse cx="10" cy="12" rx="8" ry="10" stroke="currentColor" strokeWidth="2.5" fill="none"/>
+    <line x1="2" y1="12" x2="18" y2="12" stroke="currentColor" strokeWidth="2"/>
+    {/* T: Matching stroke weight to Θ */}
+    <line x1="24" y1="3" x2="40" y2="3" stroke="currentColor" strokeWidth="2.5"/>
+    <line x1="32" y1="3" x2="32" y2="22" stroke="currentColor" strokeWidth="2.5"/>
     {/* GSMA accent dot */}
-    <circle cx="38" cy="12" r="2" fill="#a61d2d"/>
+    <circle cx="41" cy="3" r="1.5" fill="#a61d2d"/>
   </svg>
 );
 
@@ -169,7 +169,7 @@ export default function Navbar(): JSX.Element {
   }, []);
 
   return (
-    <nav className={styles.navbar}>
+    <nav className={`navbar ${styles.navbar}`}>
         <div className={styles.navbarInner}>
         {/* Logo & Brand with collapse animation */}
         <Link to="/" className={`${styles.brand} ${isCollapsed ? styles.brandCollapsed : ''}`}>

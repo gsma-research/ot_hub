@@ -161,7 +161,7 @@ export default function TelcoCapabilityIndex(): JSX.Element {
         fontSize: '20px',
         fontWeight: 'bold',
         marginBottom: '8px',
-        color: '#008080',
+        color: '#a61d2d',
         fontFamily: 'system-ui, -apple-system, sans-serif',
       }}>
         Telco Capabilities Index (TCI)

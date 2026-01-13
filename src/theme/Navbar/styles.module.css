@@ -113,8 +113,8 @@
 }
 
 .monogramSvg {
-  width: 36px;
-  height: 36px;
+  height: 1.25rem;
+  width: auto;
   color: #2d2926;
   transition: color 150ms ease;
 }
