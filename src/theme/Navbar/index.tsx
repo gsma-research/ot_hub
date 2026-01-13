@@ -198,9 +198,9 @@ export default function Navbar(): JSX.Element {
           <Dropdown
             label="Research"
             items={[
-              { to: '/research/dashboard', label: 'Dashboard' },
-              { to: '/research/benchmarks', label: 'Benchmarks' },
-              { to: '/research/models', label: 'Models' },
+              { to: '/dashboards', label: 'Dashboard' },
+              { to: '/benchmarks', label: 'Benchmarks' },
+              { to: '/models', label: 'Models' },
             ]}
           />
           <NavLink to="/leaderboard">Leaderboard</NavLink>

@@ -200,4 +200,4 @@ For fair comparisons:
 
 - [Quickstart](/docs/quickstart) - Run your first evaluation
 - [FAQ](/docs/faq) - Common questions answered
-- [Research Dashboard](/research/dashboard) - View model rankings
+- [Research Dashboard](/dashboards) - View model rankings
