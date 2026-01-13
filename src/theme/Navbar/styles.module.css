@@ -1,0 +1,222 @@
+/* Custom Navbar - Anthropic-style */
+
+/* Base navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #faf9f5;
+  border-bottom: 1px solid #e5e0d8;
+  height: 4.25rem;
+}
+
+.navbarInner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Brand */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: #2d2926;
+}
+
+.brand:hover {
+  text-decoration: none;
+  color: #2d2926;
+}
+
+.logo {
+  height: 32px;
+  border-radius: 4px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: -0.01em;
+}
+
+/* Nav Items */
+.navItems {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.navItemsRight {
+  display: flex;
+  align-items: center;
+}
+
+/* Nav Link - Underline animation on hover */
+.navLink {
+  position: relative;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #2d2926;
+  text-decoration: none;
+}
+
+/* Animated underline */
+.navLink::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 0.875rem;
+  right: 0.875rem;
+  height: 1px;
+  background: #2d2926;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.navLink:hover {
+  text-decoration: none;
+  color: #2d2926;
+}
+
+/* Active link - no special styling */
+.navLinkActive {
+  color: #2d2926;
+}
+
+.navLinkActive::after {
+  display: none;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdownToggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #2d2926;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Animated underline for dropdown toggle */
+.dropdownToggle::after {
+  content: '';
+  position: absolute;
+  bottom: 0.25rem;
+  left: 0.875rem;
+  right: 0.875rem;
+  height: 1px;
+  background: #2d2926;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.dropdownToggle:hover::after {
+  transform: scaleX(1);
+}
+
+/* Chevron Arrow - Anthropic style */
+.chevron {
+  margin-left: 2px;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevronOpen {
+  transform: rotate(-180deg);
+}
+
+/* Dropdown Menu */
+.dropdownMenu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  min-width: 200px;
+  background: #faf9f5;
+  border: 1px solid #e5e0d8;
+  border-radius: 12px;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 24px rgba(45, 41, 38, 0.12);
+  animation: fadeIn 150ms ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dropdown Item - Underscore animation, no highlight */
+.dropdownItem {
+  position: relative;
+  display: block;
+  padding: 0.625rem 1rem;
+  margin: 0 0.375rem;
+  font-size: 0.9375rem;
+  color: #2d2926;
+  text-decoration: none;
+}
+
+/* Animated underscore for dropdown items */
+.dropdownItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0.375rem;
+  left: 1rem;
+  right: 1rem;
+  height: 1px;
+  background: #2d2926;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease;
+}
+
+.dropdownItem:hover::after {
+  transform: scaleX(1);
+}
+
+.dropdownItem:hover {
+  text-decoration: none;
+  color: #2d2926;
+}
+
+/* Mobile responsive */
+@media (max-width: 996px) {
+  .navbarInner {
+    padding: 0 1rem;
+  }
+
+  .navItems {
+    display: none;
+  }
+
+  .navItemsRight {
+    display: none;
+  }
+}
