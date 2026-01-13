@@ -179,7 +179,7 @@ website/
 │                                                      ▼                       │
 │                              ┌────────────────────────────────────────────┐ │
 │                              │         GitHub Pages                        │ │
-│                              │  https://gsma-research.github.io/open_telco│ │
+│                              │  https://otelcos.github.io/open_telco│ │
 │                              └────────────────────────────────────────────┘ │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -428,13 +428,13 @@ npm run serve     # Preview production build
 ### Deployment (GitHub Pages)
 
 The site is deployed via GitHub Actions to:
-`https://gsma-research.github.io/open_telco/`
+`https://otelcos.github.io/open_telco/`
 
 Configuration in `docusaurus.config.ts`:
 ```typescript
-url: 'https://gsma-research.github.io',
+url: 'https://otelcos.github.io',
 baseUrl: '/open_telco/',
-organizationName: 'gsma-research',
+organizationName: 'otelcos',
 projectName: 'open_telco',
 ```
 

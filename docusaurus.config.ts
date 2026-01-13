@@ -12,10 +12,10 @@ const config: Config = {
   },
 
   // GitHub Pages deployment config
-  url: 'https://gsma-research.github.io',
+  url: 'https://otelcos.github.io',
   baseUrl: '/ot_hub/',
 
-  organizationName: 'gsma-research',
+  organizationName: 'otelcos',
   projectName: 'ot_hub',
   trailingSlash: false,
 
@@ -40,7 +40,7 @@ const config: Config = {
         path: 'tabs/research/docs',
         routeBasePath: 'research',
         sidebarPath: false,
-        editUrl: 'https://github.com/gsma-research/ot_hub/tree/main/',
+        editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
       },
     ],
     // Leaderboard now uses custom React page at src/pages/leaderboard.tsx
@@ -52,7 +52,7 @@ const config: Config = {
         path: 'tabs/leaderboard/docs',
         routeBasePath: 'leaderboard/details',
         sidebarPath: false,
-        editUrl: 'https://github.com/gsma-research/ot_hub/tree/main/',
+        editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
       },
     ],
     [
@@ -62,7 +62,7 @@ const config: Config = {
         path: 'tabs/resources/docs',
         routeBasePath: 'resources',
         sidebarPath: false,
-        editUrl: 'https://github.com/gsma-research/ot_hub/tree/main/',
+        editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
       },
     ],
     [
@@ -72,7 +72,7 @@ const config: Config = {
         path: 'tabs/blog/docs',
         routeBasePath: 'blog',
         sidebarPath: false,
-        editUrl: 'https://github.com/gsma-research/ot_hub/tree/main/',
+        editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
       },
     ],
   ],
@@ -85,7 +85,7 @@ const config: Config = {
           path: 'tabs/user-guide/docs',
           sidebarPath: './sidebars.ts',
           routeBasePath: '/docs',
-          editUrl: 'https://github.com/gsma-research/ot_hub/tree/main/',
+          editUrl: 'https://github.com/otelcos/ot_hub/tree/main/',
         },
         blog: false,
         theme: {
@@ -135,7 +135,7 @@ const config: Config = {
           position: 'left',
         },
         {
-          href: 'https://github.com/gsma-research/open_telco',
+          href: 'https://github.com/otelcos/open_telco',
           label: 'GitHub',
           position: 'right',
         },
@@ -175,7 +175,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/gsma-research/open_telco',
+              href: 'https://github.com/otelcos/open_telco',
             },
             {
               label: 'GSMA',

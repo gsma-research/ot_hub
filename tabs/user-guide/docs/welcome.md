@@ -26,7 +26,7 @@ Get running in under 5 minutes:
   {
     title: "Clone the repository",
     description: "Get the Open Telco codebase from GitHub.",
-    code: "git clone https://github.com/gsma-research/open_telco.git\ncd open_telco"
+    code: "git clone https://github.com/otelcos/open_telco.git\ncd open_telco"
   },
   {
     title: "Install dependencies",
@@ -59,6 +59,6 @@ For detailed setup instructions, see the [Installation Guide](/docs/installation
 
 ## Resources
 
-- **Repository:** [github.com/gsma-research/open_telco](https://github.com/gsma-research/open_telco)
+- **Repository:** [github.com/otelcos/open_telco](https://github.com/otelcos/open_telco)
 - **Datasets:** [huggingface.co/datasets/GSMA/open_telco](https://huggingface.co/datasets/GSMA/open_telco)
 - **Inspect AI:** [inspect.aisi.org.uk](https://inspect.aisi.org.uk/)

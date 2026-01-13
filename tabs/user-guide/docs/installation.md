@@ -39,7 +39,7 @@ uv --version
 ## Step 2: Clone and Install
 
 ```bash
-git clone https://github.com/gsma-research/open_telco.git
+git clone https://github.com/otelcos/open_telco.git
 cd open_telco
 uv sync
 ```

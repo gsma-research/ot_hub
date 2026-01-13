@@ -13,7 +13,7 @@ We welcome contributions from the community! Open Telco is an open-source projec
 
 | Contribution | Description |
 |--------------|-------------|
-| **Report Issues** | Found a bug? Open an issue on [GitHub](https://github.com/gsma-research/open_telco/issues). |
+| **Report Issues** | Found a bug? Open an issue on [GitHub](https://github.com/otelcos/open_telco/issues). |
 | **Request Features** | Have an idea? Share it in GitHub Issues or Discussions. |
 | **Improve Docs** | Fix typos, add examples, or write tutorials. |
 | **Add Benchmarks** | Contribute new telecom-specific evaluations. |

@@ -280,6 +280,6 @@ Common questions about Open Telco, organized by topic.
 
 ## Getting Help
 
-- **GitHub Issues:** [github.com/gsma-research/open_telco/issues](https://github.com/gsma-research/open_telco/issues)
+- **GitHub Issues:** [github.com/otelcos/open_telco/issues](https://github.com/otelcos/open_telco/issues)
 - **Inspect AI Docs:** [inspect.aisi.org.uk](https://inspect.aisi.org.uk/)
 - **Email:** [emolero@gsma.com](mailto:emolero@gsma.com)

@@ -110,7 +110,7 @@ export default function LeaderboardPage(): JSX.Element {
           <p>
             Want to add your model to the leaderboard? Run the full evaluation suite,
             document your setup, and submit via{' '}
-            <a href="https://github.com/gsma-research/open_telco/issues" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/otelcos/open_telco/issues" target="_blank" rel="noopener noreferrer">
               GitHub Issues
             </a>.
           </p>

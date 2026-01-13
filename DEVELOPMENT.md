@@ -47,7 +47,7 @@ website/
 
 ## Deployment
 
-The site is deployed to GitHub Pages at https://gsma-research.github.io/open_telco/
+The site is deployed to GitHub Pages at https://otelcos.github.io/open_telco/
 
 To deploy manually:
 ```bash
