@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import katex from 'katex';
@@ -151,6 +151,52 @@ function TextClassificationQuestionCard({ question, index }: { question: TextCla
 }
 
 function QuestionCard({ question, index, isExpanded, onToggle }: QuestionCardProps) {
+  const accordionRef = useRef<HTMLDivElement>(null);
+
+  // Debug logging to identify layout expansion issue
+  useEffect(() => {
+    if (isExpanded && accordionRef.current) {
+      // Small delay to ensure DOM has rendered
+      setTimeout(() => {
+        const accordion = accordionRef.current;
+        if (!accordion) return;
+
+        const content = accordion.querySelector('.accordion-content') as HTMLElement;
+        const card = accordion.querySelector('.question-card') as HTMLElement;
+        const options = accordion.querySelector('.question-options') as HTMLElement;
+        const questionText = accordion.querySelector('.question-text') as HTMLElement;
+
+        console.log(`Q${index + 1} (${question.type}) expanded:`, {
+          accordion: {
+            offsetWidth: accordion.offsetWidth,
+            scrollWidth: accordion.scrollWidth,
+            overflow: accordion.scrollWidth > accordion.offsetWidth,
+          },
+          content: content ? {
+            offsetWidth: content.offsetWidth,
+            scrollWidth: content.scrollWidth,
+            overflow: content.scrollWidth > content.offsetWidth,
+          } : null,
+          card: card ? {
+            offsetWidth: card.offsetWidth,
+            scrollWidth: card.scrollWidth,
+            overflow: card.scrollWidth > card.offsetWidth,
+          } : null,
+          options: options ? {
+            offsetWidth: options.offsetWidth,
+            scrollWidth: options.scrollWidth,
+            overflow: options.scrollWidth > options.offsetWidth,
+          } : null,
+          questionText: questionText ? {
+            offsetWidth: questionText.offsetWidth,
+            scrollWidth: questionText.scrollWidth,
+            overflow: questionText.scrollWidth > questionText.offsetWidth,
+          } : null,
+        });
+      }, 100);
+    }
+  }, [isExpanded, index, question.type]);
+
   const getQuestionPreview = () => {
     let text = '';
     if (question.type === 'mcq') text = question.question;
@@ -174,7 +220,7 @@ function QuestionCard({ question, index, isExpanded, onToggle }: QuestionCardPro
   };
 
   return (
-    <div className={`question-accordion ${isExpanded ? 'expanded' : 'collapsed'}`}>
+    <div ref={accordionRef} className={`question-accordion ${isExpanded ? 'expanded' : 'collapsed'}`}>
       <button className="accordion-toggle" onClick={onToggle}>
         <div className="accordion-header">
           <span className="accordion-number">Q{index + 1}</span>

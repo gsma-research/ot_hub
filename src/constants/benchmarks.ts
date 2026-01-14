@@ -11,8 +11,8 @@ export type { BenchmarkCategory };
  */
 export const BENCHMARK_CATEGORIES = [
   { id: 'overall', label: 'Overall', icon: '/img/benchmark-icons/trophy-overall.svg' },
-  { id: 'knowledge', label: 'Knowledge', emoji: '📚' },
-  { id: 'network-optimisation', label: 'Network Ops', emoji: '⚙️' },
+  { id: 'knowledge', label: 'Knowledge', icon: '/img/benchmark-icons/knowledge-icon.png' },
+  { id: 'network-optimisation', label: 'Network Ops', icon: '/img/benchmark-icons/network-optimisation-icon.png' },
 ] as const;
 
 /**
