@@ -54,7 +54,7 @@ export const BENCHMARKS: BenchmarkConfig[] = [
   {
     key: 'telemath',
     title: 'TeleMath',
-    description: 'Evaluating mathematical reasoning in signal processing, network optimisation, and performance analysis.',
+    description: 'Evaluating mathematical reasoning in telecommunication settings.',
     samples: '500',
     category: 'knowledge',
     paperLink: 'https://arxiv.org/abs/2506.10674',
@@ -163,6 +163,7 @@ export const BENCHMARKS: BenchmarkConfig[] = [
     description: 'Evaluating 3GPP protocols knowledge.',
     samples: '5,000+',
     category: 'knowledge',
+    paperLink: 'https://arxiv.org/abs/2407.09424',
     datasetLink: 'https://huggingface.co/datasets/eaguaida/gsma_sample',
     questions: [
       {
@@ -180,9 +181,11 @@ export const BENCHMARKS: BenchmarkConfig[] = [
   {
     key: 'teletables',
     title: 'TeleTables',
-    description: 'Evaluating table understanding and reasoning in telecommunications contexts.',
+    description: 'Evaluating LLM knowledge and table interpretation of 3GPP telecom standards.',
     samples: 'TBD',
     category: 'knowledge',
+    paperLink: 'https://arxiv.org/abs/2601.04202',
+    datasetLink: 'https://huggingface.co/datasets/netop/TeleTables',
     comingSoon: true,
     questions: [
       {
@@ -205,7 +208,7 @@ export const BENCHMARKS: BenchmarkConfig[] = [
   {
     key: 'teleyaml',
     title: 'TeleYAML',
-    description: 'Evaluating network configuration generation and YAML understanding.',
+    description: 'Evaluating understanding of 5G core networks parameters and configuration syntax.',
     samples: 'TBD',
     category: 'network-optimisation',
     comingSoon: true,

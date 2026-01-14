@@ -3586,14 +3586,14 @@ a.benchmark-card-clickable:hover .benchmark-card-arrow {
 .benchmark-questions-section {
   margin-top: 48px;
   padding-top: 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--ot-border);
 }
 
 .questions-section-title {
   font-family: 'JetBrains Mono', monospace;
   font-size: 18px;
   font-weight: 600;
-  color: #F3F4F6;
+  color: var(--ot-text);
   margin-bottom: 24px;
 }
 
