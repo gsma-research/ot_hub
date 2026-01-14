@@ -10,7 +10,7 @@ export type { BenchmarkCategory };
  * Category tab definitions for leaderboard navigation
  */
 export const BENCHMARK_CATEGORIES = [
-  { id: 'overall', label: 'Overall' },
+  { id: 'overall', label: 'Overall', icon: '🏆' },
   { id: 'knowledge', label: 'Knowledge' },
   { id: 'network-optimisation', label: 'Network Optimisation' },
   { id: 'self-healing', label: 'Self-Healing' },

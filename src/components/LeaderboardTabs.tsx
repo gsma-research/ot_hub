@@ -20,6 +20,7 @@ export default function LeaderboardTabs({
           className={`leaderboard-tab ${activeTab === category.id ? 'active' : ''}`}
           onClick={() => onTabChange(category.id)}
         >
+          {'icon' in category && <span className="leaderboard-tab-icon">{category.icon}</span>}
           {category.label}
         </button>
       ))}

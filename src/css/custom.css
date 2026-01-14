@@ -933,7 +933,7 @@ a.benchmark-card-clickable:hover .benchmark-card-arrow {
   padding: 14px 20px;
   font-size: 14px;
   font-weight: 500;
-  color: #8a8582;
+  color: #2d2926;
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
@@ -954,7 +954,7 @@ a.benchmark-card-clickable:hover .benchmark-card-arrow {
 }
 
 .leaderboard-tab:hover:not(.active) {
-  color: #ffffff;
+  color: #1a1714;
 }
 
 .leaderboard-tab.active {
