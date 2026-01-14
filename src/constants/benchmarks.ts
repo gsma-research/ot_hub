@@ -68,6 +68,10 @@ export const BENCHMARKS: BenchmarkConfig[] = [
         type: 'open-ended',
         question: 'Calculate the signal power, expressed in dBm, at the input of the receiver for a space probe transmitting binary data via BPSK from 80000 km away, given a transmitted power of 50 dBm at a carrier frequency of 1.2 GHz over a narrowband channel, with transmit and receive antenna gains of 30 dB and 50 dB respectively, and an effective noise temperature at the receiver input of 280 K.',
       },
+      {
+        type: 'open-ended',
+        question: 'Let $y$ be an exponential random variable with parameter $\\lambda = 1.5$, and let $v$ be a random variable that, conditioned on $y = a$, follows a Poisson distribution with parameter $a$. What is the probability mass function (PMF) of $v$ when $k = 1$ and $\\lambda = 1$?',
+      },
     ],
   },
   {
@@ -90,6 +94,54 @@ export const BENCHMARKS: BenchmarkConfig[] = [
             ['15:23:54', '71', '-85.5', '1.81', '334.0'],
             ['15:23:55', '71', '-88.21', '5.4', '431.94'],
             ['15:23:56', '71', '-78.45', '13.59', '566.34'],
+          ],
+        },
+        options: [
+          'C1: The serving cell\'s downtilt angle is too large, causing weak coverage at the far end.',
+          'C2: The serving cell\'s coverage distance exceeds 1km, resulting in over-shooting.',
+          'C3: A neighboring cell provides higher throughput.',
+          'C4: Non-colocated co-frequency neighboring cells cause severe overlapping coverage.',
+          'C5: Frequent handovers degrade performance.',
+          'C6: Neighbor cell and serving cell have the same PCI mod 30, leading to interference.',
+          'C7: Test vehicle speed exceeds 40km/h, impacting user throughput.',
+          'C8: Average scheduled RBs are below 160, affecting throughput.',
+        ],
+      },
+      {
+        type: 'log-analysis',
+        prompt: 'Given the user plane drive test data and engineering parameters below, identify the root cause of the performance issue.\n\nNote: Default electronic downtilt value 255 = 6 degrees. Beam Scenario DEFAULT/SCENARIO_1-5 = 6° vertical beamwidth.',
+        tableExcerpt: {
+          headers: ['Timestamp', 'PCI', 'SS-RSRP (dBm)', 'SS-SINR (dB)', 'DL Throughput (Mbps)'],
+          rows: [
+            ['13:17:12', '129', '-72.15', '28.0', '1376.03'],
+            ['13:17:13', '129', '-72.48', '27.83', '1449.05'],
+            ['13:17:17', '129', '-84.0', '19.87', '575.25'],
+            ['13:17:18', '307', '-86.53', '18.41', '588.41'],
+            ['13:17:21', '307', '-88.38', '14.22', '1212.64'],
+          ],
+        },
+        options: [
+          'C1: The serving cell\'s downtilt angle is too large, causing weak coverage at the far end.',
+          'C2: The serving cell\'s coverage distance exceeds 1km, resulting in over-shooting.',
+          'C3: A neighboring cell provides higher throughput.',
+          'C4: Non-colocated co-frequency neighboring cells cause severe overlapping coverage.',
+          'C5: Frequent handovers degrade performance.',
+          'C6: Neighbor cell and serving cell have the same PCI mod 30, leading to interference.',
+          'C7: Test vehicle speed exceeds 40km/h, impacting user throughput.',
+          'C8: Average scheduled RBs are below 160, affecting throughput.',
+        ],
+      },
+      {
+        type: 'log-analysis',
+        prompt: 'Given the user plane drive test data and engineering parameters below, identify the root cause of the performance issue.\n\nNote: Default electronic downtilt value 255 = 6 degrees. Beam Scenario DEFAULT/SCENARIO_1-5 = 6° vertical beamwidth.',
+        tableExcerpt: {
+          headers: ['Timestamp', 'PCI', 'SS-RSRP (dBm)', 'SS-SINR (dB)', 'DL Throughput (Mbps)'],
+          rows: [
+            ['11:29:25', '477', '-81.98', '2.54', '750.04'],
+            ['11:29:27', '477', '-84.97', '2.46', '1124.87'],
+            ['11:29:29', '477', '-84.46', '1.51', '213.28'],
+            ['11:29:31', '338', '-85.17', '0.55', '236.93'],
+            ['11:29:34', '338', '-75.75', '17.39', '838.58'],
           ],
         },
         options: [
