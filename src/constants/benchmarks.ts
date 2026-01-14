@@ -12,8 +12,7 @@ export type { BenchmarkCategory };
 export const BENCHMARK_CATEGORIES = [
   { id: 'overall', label: 'Overall', icon: '/img/benchmark-icons/trophy-overall.svg' },
   { id: 'knowledge', label: 'Knowledge', emoji: '📚' },
-  { id: 'network-optimisation', label: 'Network Optimisation', emoji: '⚙️' },
-  { id: 'self-healing', label: 'Self-Healing', emoji: '🔧' },
+  { id: 'network-optimisation', label: 'Network Ops', emoji: '⚙️' },
 ] as const;
 
 /**
@@ -76,7 +75,7 @@ export const BENCHMARKS: BenchmarkConfig[] = [
     title: 'TeleLogs',
     description: 'Evaluating root cause analysis capabilities for 5G network.',
     samples: '1,000+',
-    category: 'self-healing',
+    category: 'network-optimisation',
     paperLink: 'https://arxiv.org/abs/2507.21974',
     datasetLink: 'https://huggingface.co/datasets/netop/TeleLogs',
     questions: [

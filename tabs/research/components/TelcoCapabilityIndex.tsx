@@ -346,10 +346,6 @@ export default function TelcoCapabilityIndex(): JSX.Element {
   return (
     <div className="tci-chart-container">
       <h2 className="tci-title">Telco Capabilities Index (TCI)</h2>
-      <p className="tci-description">
-        A unified measure of AI model performance across telecommunications-specific tasks,
-        using IRT-inspired methodology for meaningful cross-model comparisons.
-      </p>
 
       <div className="tci-chart-wrapper">
         {/* Organization Legend */}
