@@ -16,7 +16,7 @@ const config: Config = {
   baseUrl: '/',
 
   organizationName: 'otelcos',
-  projectName: 'ot_hub',
+  projectName: 'website',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
