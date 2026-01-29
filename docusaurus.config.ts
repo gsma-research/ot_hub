@@ -141,52 +141,7 @@ const config: Config = {
     },
     footer: {
       style: 'light',
-      links: [
-        {
-          title: 'Documentation',
-          items: [
-            {
-              label: 'User Guide',
-              to: '/docs',
-            },
-            {
-              label: 'Getting Started',
-              to: '/docs/installation',
-            },
-          ],
-        },
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'Datasets & Methodology',
-              to: '/resources/datasets',
-            },
-            {
-              label: 'Telco Specific Agents',
-              to: '/resources/agents',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/otelcos/evals',
-            },
-            {
-              label: 'GSMA',
-              href: 'https://www.gsma.com',
-            },
-            {
-              label: 'Hugging Face',
-              href: 'https://huggingface.co/datasets/GSMA/open_telco',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} GSMA. Built with Docusaurus.`,
+      links: [],
     },
     prism: {
       theme: prismThemes.github,

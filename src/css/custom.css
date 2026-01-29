@@ -4,8 +4,8 @@
  * Typography: JetBrains Mono (display) + Source Sans 3 (body)
  */
 
-/* Fonts - JetBrains Mono for technical headlines, Source Sans 3 for body */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+/* Fonts - JetBrains Mono for technical headlines, Source Sans 3 for body, Inter for footer */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
 
 /* Infima CSS variable overrides */
 :root {
