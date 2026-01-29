@@ -1,29 +1,57 @@
 import React from 'react';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
+import FeatureCard from '@site/src/components/FeatureCard';
 import styles from './index.module.css';
 
-// Hero Section - Minimal, Technical, Data-driven
-function HeroSection(): JSX.Element {
+// Feature card data
+const features = [
+  {
+    title: 'Telco Capability Index',
+    description:
+      'Track performance over time in frontier models on telecommunication tasks',
+    href: '/leaderboard/tci',
+    videoSrc: '/videos/telco_capability.mp4',
+  },
+  {
+    title: 'Models',
+    description:
+      'To achieve L5 autonomous level in telecoms, we need specialised models that can be deployed at scale',
+    href: '/models',
+    videoSrc: '/videos/telco_models.mp4',
+  },
+  {
+    title: 'Data',
+    description:
+      'We bring together experts across the industry to open-source massive datasets',
+    href: '/data',
+    videoSrc: '/videos/dataa.mp4',
+  },
+  {
+    title: 'Compute',
+    description:
+      'We make compute available for developers building open-source models',
+    href: '/resources',
+    videoSrc: '/videos/compute.mp4',
+  },
+];
+
+// Features Section - 4 horizontal cards
+function FeaturesSection(): JSX.Element {
   return (
-    <section className={styles.hero}>
-      {/* Subtle grid background */}
-      <div className={styles.heroGrid} aria-hidden="true" />
-
-      {/* Radial glow accent */}
-      <div className={styles.heroGlow} aria-hidden="true" />
-
-      <div className={styles.heroContent}>
-        <h1 className={styles.heroTitle}>
-          Evaluating AI as Network Engineers
-        </h1>
-        <div className={styles.heroCtas}>
-          <Link to="/leaderboard" className={styles.ctaPrimary}>
-            View Leaderboard
-          </Link>
-          <Link to="/dashboards" className={styles.ctaSecondary}>
-            Explore Research
-          </Link>
+    <section className={styles.featuresSection}>
+      <div className={styles.featuresContainer}>
+        <div className={styles.featuresGrid}>
+          {features.map((feature, index) => (
+            <FeatureCard
+              key={feature.title}
+              title={feature.title}
+              description={feature.description}
+              href={feature.href}
+              videoSrc={feature.videoSrc}
+              imageSrc={feature.imageSrc}
+              animationDelay={index * 100}
+            />
+          ))}
         </div>
       </div>
     </section>
@@ -38,7 +66,7 @@ export default function Home(): JSX.Element {
       description="GSMA's industry-standard benchmark suite for evaluating language models on telecom-specific tasks. Measure reasoning, troubleshooting, and network management capabilities."
     >
       <main>
-        <HeroSection />
+        <FeaturesSection />
       </main>
     </Layout>
   );
