@@ -48,10 +48,66 @@ function FeaturesSection(): JSX.Element {
               description={feature.description}
               href={feature.href}
               videoSrc={feature.videoSrc}
-              imageSrc={feature.imageSrc}
               animationDelay={index * 100}
             />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Mission Section - Three-part narrative: Challenge → Solution → Call to Action
+function MissionSection(): JSX.Element {
+  return (
+    <section className={styles.missionSection}>
+      <div className={styles.missionContent}>
+        <h2 className={styles.missionHeadline}>Making AI speak telecom.</h2>
+
+        {/* The Challenge */}
+        <div className={styles.missionBlock}>
+          <h3 className={styles.missionBlockLabel}>The Challenge</h3>
+          <p>
+            Connectivity underpins modern society, yet today's most advanced AI
+            systems falter when applied to telecommunications. Frontier models
+            produce 30-40% incorrect responses on telecom-specific queries,
+            hallucinate spectrum regulations, and struggle with the precision
+            required for autonomous network operations. General-purpose AI does
+            not speak the language of 3GPP standards, ITU protocols, or
+            real-world network troubleshooting. This domain gap threatens to
+            delay the industry's path toward zero-touch, self-healing networks.
+          </p>
+        </div>
+
+        {/* The Solution */}
+        <div className={styles.missionBlock}>
+          <h3 className={styles.missionBlockLabel}>The Solution</h3>
+          <p>
+            Open Telco AI is the industry's response—an open, neutral hub where
+            leading operators, research institutions, and technology providers
+            collaborate to build telco-grade AI foundations. Supported by
+            Deutsche Telekom, SK Telecom, Huawei, Hugging Face, and the Linux
+            Foundation, this GSMA-led initiative delivers open benchmarks,
+            shared datasets, and community-driven model development. Through the
+            Telco Capability Index and rigorous evaluation frameworks, we are
+            establishing the standard of truth for AI performance in
+            telecommunications.
+          </p>
+        </div>
+
+        {/* The Call to Action */}
+        <div className={styles.missionBlock}>
+          <h3 className={styles.missionBlockLabel}>Join Us</h3>
+          <p>
+            Whether you are a network engineer seeking better tools, a
+            researcher advancing AI capabilities, or a developer building
+            next-generation telco applications, Open Telco AI provides the
+            resources, benchmarks, and community to accelerate your work. Join
+            challenges like the AI Telco Troubleshooting competition, contribute
+            to open-source evaluations, or benchmark your models against
+            industry standards. The future of intelligent networks is being
+            built in the open—and your expertise belongs here.
+          </p>
         </div>
       </div>
     </section>
@@ -67,6 +123,7 @@ export default function Home(): JSX.Element {
     >
       <main>
         <FeaturesSection />
+        <MissionSection />
       </main>
     </Layout>
   );
