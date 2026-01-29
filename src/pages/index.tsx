@@ -3,6 +3,18 @@ import Layout from '@theme/Layout';
 import FeatureCard from '@site/src/components/FeatureCard';
 import styles from './index.module.css';
 
+// Collaborators data
+const collaborators = [
+  { name: 'Huawei', logo: '/img/collaborators/huawei.png', url: 'https://huawei.com', scale: 1 },
+  { name: 'Nvidia', logo: '/img/collaborators/nvidia.png', url: 'https://nvidia.com', scale: 1 },
+  { name: 'Khalifa University', logo: '/img/collaborators/khalifa-university.png', url: 'https://ku.ac.ae', scale: 2 },
+  { name: 'AT&T', logo: '/img/collaborators/att.png', url: 'https://att.com', scale: 1 },
+  { name: 'Orange', logo: '/img/collaborators/orange.png', url: 'https://orange.com', scale: 1 },
+  { name: 'Vodafone', logo: '/img/collaborators/vodafone.png', url: 'https://vodafone.com', scale: 1 },
+  { name: 'Google', logo: '/img/collaborators/google.png', url: 'https://google.com', scale: 1 },
+  { name: 'SoftBank', logo: '/img/collaborators/softbank.svg', url: 'https://softbank.com', scale: 1 },
+];
+
 // Feature card data
 const features = [
   {
@@ -57,56 +69,87 @@ function FeaturesSection(): JSX.Element {
   );
 }
 
-// Mission Section - Three-part narrative: Challenge → Solution → Call to Action
+// Collaborators Section - Partner logos
+function CollaboratorsSection(): JSX.Element {
+  return (
+    <section className={styles.collaboratorsSection}>
+      <h3 className={styles.collaboratorsTitle}>Our Collaborators</h3>
+      <div className={styles.collaboratorsGrid}>
+        {collaborators.map((collab) => (
+          <a
+            key={collab.name}
+            href={collab.url}
+            className={styles.collaboratorLogo}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={collab.logo}
+              alt={collab.name}
+              style={collab.scale !== 1 ? { transform: `scale(${collab.scale})` } : undefined}
+            />
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// Mission Section - Atomicwork-style split layout
 function MissionSection(): JSX.Element {
   return (
     <section className={styles.missionSection}>
-      <div className={styles.missionContent}>
-        <h2 className={styles.missionHeadline}>Making AI speak telecom.</h2>
+      {/* The Challenge card */}
+      <div className={styles.missionHeroCard}>
+        <h3 className={styles.missionBlockTitle}>The Challenge</h3>
+        <p>
+          <strong>Connectivity</strong> underpins modern society, yet today's
+          most advanced AI systems <strong>falter</strong> when applied to
+          telecommunications. Frontier models produce{' '}
+          <strong>30-40% incorrect responses</strong> on telecom-specific
+          queries, <strong>hallucinate</strong> spectrum regulations, and
+          struggle with the precision required for{' '}
+          <strong>autonomous network operations</strong>. General-purpose AI
+          does not speak the language of <strong>3GPP standards</strong>,{' '}
+          <strong>ITU protocols</strong>, or real-world network troubleshooting.
+          This domain gap threatens to delay the industry's path toward{' '}
+          <strong>zero-touch, self-healing networks</strong>.
+        </p>
+      </div>
 
-        {/* The Challenge */}
-        <div className={styles.missionBlock}>
-          <h3 className={styles.missionBlockLabel}>The Challenge</h3>
+      {/* THE SOLUTION - Text Left, Placeholder Right */}
+      <div className={styles.splitSection}>
+        <div className={styles.splitTextColumn}>
+          <h3 className={styles.missionBlockTitle}>The Solution</h3>
           <p>
-            Connectivity underpins modern society, yet today's most advanced AI
-            systems falter when applied to telecommunications. Frontier models
-            produce 30-40% incorrect responses on telecom-specific queries,
-            hallucinate spectrum regulations, and struggle with the precision
-            required for autonomous network operations. General-purpose AI does
-            not speak the language of 3GPP standards, ITU protocols, or
-            real-world network troubleshooting. This domain gap threatens to
-            delay the industry's path toward zero-touch, self-healing networks.
+            GSMA Open-Telco is where operators, researchers, and tech providers
+            build telco-grade AI together.
           </p>
         </div>
-
-        {/* The Solution */}
-        <div className={styles.missionBlock}>
-          <h3 className={styles.missionBlockLabel}>The Solution</h3>
-          <p>
-            Open Telco AI is the industry's response—an open, neutral hub where
-            leading operators, research institutions, and technology providers
-            collaborate to build telco-grade AI foundations. Supported by
-            Deutsche Telekom, SK Telecom, Huawei, Hugging Face, and the Linux
-            Foundation, this GSMA-led initiative delivers open benchmarks,
-            shared datasets, and community-driven model development. Through the
-            Telco Capability Index and rigorous evaluation frameworks, we are
-            establishing the standard of truth for AI performance in
-            telecommunications.
-          </p>
+        <div className={styles.splitImageColumn}>
+          <img
+            src="/videos/everyone.png"
+            alt="Open Telco AI collaboration"
+            className={styles.splitImage}
+          />
         </div>
+      </div>
 
-        {/* The Call to Action */}
-        <div className={styles.missionBlock}>
-          <h3 className={styles.missionBlockLabel}>Join Us</h3>
+      {/* JOIN US - Image Left, Text Right */}
+      <div className={`${styles.splitSection} ${styles.splitSectionGap}`}>
+        <div className={styles.splitImageColumn}>
+          <img
+            src="/videos/join_us.png"
+            alt="Join the Open Telco AI community"
+            className={styles.splitImage}
+          />
+        </div>
+        <div className={styles.splitTextColumn}>
+          <h3 className={styles.missionBlockTitle}>Join Us</h3>
           <p>
-            Whether you are a network engineer seeking better tools, a
-            researcher advancing AI capabilities, or a developer building
-            next-generation telco applications, Open Telco AI provides the
-            resources, benchmarks, and community to accelerate your work. Join
-            challenges like the AI Telco Troubleshooting competition, contribute
-            to open-source evaluations, or benchmark your models against
-            industry standards. The future of intelligent networks is being
-            built in the open—and your expertise belongs here.
+            We offer resources, benchmarks, and community to accelerate your
+            work. Join competitions, contribute evaluations, or benchmark your
+            models.
           </p>
         </div>
       </div>
@@ -124,6 +167,7 @@ export default function Home(): JSX.Element {
       <main>
         <FeaturesSection />
         <MissionSection />
+        <CollaboratorsSection />
       </main>
     </Layout>
   );

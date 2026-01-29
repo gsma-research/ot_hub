@@ -216,8 +216,7 @@
 
 .featuresSection {
   background: #faf9f5;
-  padding: 3rem 0 6rem;
-  min-height: calc(100vh - 4.25rem);
+  padding: 2rem 0 3rem;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -242,6 +241,14 @@
   gap: 1.5rem;
   padding: 1rem 4rem 2rem;
   width: max-content;
+  margin: 0 auto;
+}
+
+@media (max-width: 1500px) {
+  .featuresGrid {
+    margin: 0;
+    justify-content: flex-start;
+  }
 }
 
 /* Responsive padding for carousel */
@@ -271,124 +278,356 @@
 }
 
 /* ============================================
-   MISSION SECTION - Full viewport with fixed background
+   MISSION SECTION - Atomicwork-style split layout
    ============================================ */
 
 .missionSection {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   background-color: #faf9f5;
-  background-image: url('/videos/background_landing.png');
-  background-size: cover;
-  background-position: calc(100% + 700px) center;
-  background-repeat: no-repeat;
   position: relative;
-  padding: 4rem 0;
-}
-
-/* Content card with frosted glass effect for readability */
-.missionContent {
-  position: relative;
-  max-width: 720px;
-  margin-left: 5%;
-  padding: 3.5rem 3rem;
-  background: rgba(250, 249, 245, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 2px;
-  box-shadow:
-    0 4px 24px rgba(26, 23, 20, 0.08),
-    0 1px 3px rgba(26, 23, 20, 0.04);
-  border-left: 3px solid #a61d2d;
-  animation: missionFadeIn 0.8s ease-out;
+  padding: 0 4rem;
 }
 
 @keyframes missionFadeIn {
   from {
     opacity: 0;
-    transform: translateX(-24px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-.missionHeadline {
-  font-size: clamp(32px, 4vw, 48px);
+/* The Challenge card */
+.missionHeroCard {
+  background: #f5f4f2;
+  border-radius: 20px;
+  padding: 3rem;
+  margin: 0 auto 1rem;
+  max-width: 1200px;
+  animation: missionFadeIn 0.8s ease-out;
+}
+
+.missionHeroCard p {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #3d3a37;
+  margin: 0;
+  max-width: 800px;
+  text-align: justify;
+}
+
+/* Block title - matches FeatureCard title style */
+.missionBlockTitle {
+  font-family: var(--font-display);
+  font-size: 32px;
   font-weight: 600;
-  line-height: 1.15;
   color: #1a1714;
-  margin: 0 0 2.5rem;
-  letter-spacing: -0.02em;
-  text-align: left;
-}
-
-.missionBlock {
-  margin: 0 0 2rem;
-}
-
-.missionBlock:last-child {
-  margin-bottom: 0;
-}
-
-.missionBlockLabel {
-  font-size: 0.7rem;
-  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #a61d2d;
-  margin: 0 0 0.625rem;
 }
 
-.missionBlock p {
-  font-size: 1rem;
-  line-height: 1.75;
+.missionHeroLeft p {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #3d3a37;
+  margin: 0;
+  max-width: 540px;
+}
+
+/* ============================================
+   SPLIT LAYOUT SECTIONS - Atomicwork-style
+   ============================================ */
+
+.splitSection {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  align-items: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: missionFadeIn 0.8s ease-out 0.2s backwards;
+}
+
+.splitSectionReverse {
+  flex-direction: row-reverse;
+}
+
+.splitSectionGap {
+  margin-top: 1rem;
+}
+
+.splitTextColumn,
+.splitPlaceholderColumn {
+  flex: 1;
+}
+
+.splitTextColumn {
+  max-width: 600px;
+}
+
+.splitTextColumn p {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.7;
   color: #3d3a37;
   margin: 0;
 }
 
+.splitPlaceholderColumn {
+  flex: 1;
+  min-height: 300px;
+  background: #e8e6e1;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.splitImageColumn {
+  flex: 1;
+  max-width: 500px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.splitImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* Tablet */
 @media (max-width: 1024px) {
-  .missionContent {
-    margin-left: 4%;
-    margin-right: 4%;
-    max-width: 640px;
+  .missionSection {
+    padding: 0 3rem;
+  }
+
+  .missionHeroCard {
+    margin: 0 auto 1rem;
+    padding: 2.5rem;
+  }
+
+  .splitSection {
+    padding: 1.5rem 0;
+    gap: 1.5rem;
+  }
+
+  .splitSectionGap {
+    margin-top: 0.75rem;
   }
 }
 
 /* Mobile */
 @media (max-width: 768px) {
   .missionSection {
-    justify-content: center;
-    padding: 2rem 0;
-    background-position: center bottom;
+    padding: 0 1.5rem;
   }
 
-  .missionContent {
-    margin: 1rem;
-    padding: 2.5rem 2rem;
-    max-width: none;
-    border-left: none;
-    border-top: 3px solid #a61d2d;
+  .missionHeroCard {
+    margin: 0 auto 1rem;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
   }
 
-  .missionHeadline {
-    text-align: center;
+  .missionBlockTitle {
+    font-size: 24px;
+    margin-bottom: 1rem;
+  }
+
+  .missionHeroCard p {
+    font-size: 1rem;
+  }
+
+  .splitSection {
+    flex-direction: column;
+    padding: 1rem 0;
+    min-height: auto;
+    gap: 1.5rem;
+  }
+
+  .splitSectionReverse {
+    flex-direction: column;
+  }
+
+  .splitSectionGap {
+    margin-top: 0.5rem;
+  }
+
+  .splitTextColumn {
+    max-width: 100%;
+  }
+
+  .splitTextColumn p {
+    font-size: 1rem;
+  }
+
+  .splitPlaceholderColumn {
+    min-height: 200px;
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .splitImageColumn {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 12px;
   }
 }
 
 /* Small mobile */
 @media (max-width: 480px) {
-  .missionContent {
-    padding: 2rem 1.5rem;
-    margin: 1rem;
+  .missionSection {
+    padding: 0 1rem;
   }
 
-  .missionBlock p {
+  .missionHeroCard {
+    margin: 0 auto 1rem;
+    padding: 1.5rem 1.25rem;
+    border-radius: 12px;
+  }
+
+  .missionBlockTitle {
+    font-size: 20px;
+  }
+
+  .missionHeroCard p {
     font-size: 0.9375rem;
+  }
+
+  .splitSection {
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .splitSectionGap {
+    margin-top: 0.5rem;
+  }
+
+  .splitTextColumn p {
+    font-size: 0.9375rem;
+  }
+
+  .splitPlaceholderColumn {
+    min-height: 160px;
+    border-radius: 8px;
+  }
+
+  .splitImageColumn {
+    border-radius: 8px;
+  }
+}
+
+/* ============================================
+   COLLABORATORS SECTION
+   ============================================ */
+
+.collaboratorsSection {
+  background: #faf9f5;
+  padding: 4rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.collaboratorsTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: #1a1714;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  letter-spacing: 0.05em;
+}
+
+.collaboratorsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.collaboratorLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.collaboratorLogo img {
+  height: 40px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(0.4);
+  transition: all 0.2s ease;
+}
+
+.collaboratorLogo:hover img {
+  filter: grayscale(0%) brightness(1);
+}
+
+/* Tablet: 4 columns */
+@media (max-width: 1024px) {
+  .collaboratorsSection {
+    padding: 3rem 2rem;
+  }
+
+  .collaboratorsGrid {
+    gap: 2rem 1.5rem;
+  }
+
+  .collaboratorLogo img {
+    max-height: 40px;
+    max-width: 140px;
+  }
+}
+
+/* Mobile: 2 columns */
+@media (max-width: 768px) {
+  .collaboratorsSection {
+    padding: 2.5rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .collaboratorsTitle {
+    font-size: 20px;
+    margin-bottom: 2rem;
+  }
+
+  .collaboratorsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+  }
+
+  .collaboratorLogo img {
+    max-height: 36px;
+    max-width: 120px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .collaboratorsSection {
+    padding: 2rem 1rem;
+  }
+
+  .collaboratorsTitle {
+    font-size: 18px;
+    margin-bottom: 1.5rem;
+  }
+
+  .collaboratorsGrid {
+    gap: 1.5rem 1rem;
+  }
+
+  .collaboratorLogo img {
+    max-height: 32px;
+    max-width: 100px;
   }
 }
 
