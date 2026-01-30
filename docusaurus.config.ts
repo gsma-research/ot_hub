@@ -94,7 +94,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: 'img/open-telco-social-card.jpg',
     colorMode: {
       defaultMode: 'light',
       disableSwitch: true,
@@ -132,65 +131,10 @@ const config: Config = {
           label: 'Leaderboard',
           position: 'left',
         },
-        {
-          href: 'https://github.com/otelcos/evals',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
-    },
-    footer: {
-      style: 'light',
-      links: [
-        {
-          title: 'Documentation',
-          items: [
-            {
-              label: 'User Guide',
-              to: '/docs',
-            },
-            {
-              label: 'Getting Started',
-              to: '/docs/installation',
-            },
-          ],
-        },
-        {
-          title: 'Resources',
-          items: [
-            {
-              label: 'Datasets & Methodology',
-              to: '/resources/datasets',
-            },
-            {
-              label: 'Telco Specific Agents',
-              to: '/resources/agents',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'GitHub',
-              href: 'https://github.com/otelcos/evals',
-            },
-            {
-              label: 'GSMA',
-              href: 'https://www.gsma.com',
-            },
-            {
-              label: 'Hugging Face',
-              href: 'https://huggingface.co/datasets/GSMA/open_telco',
-            },
-          ],
-        },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} GSMA. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
     },
     tableOfContents: {
       minHeadingLevel: 2,

@@ -1,0 +1,230 @@
+/* FeatureCard - DeepMind-style tall vertical cards */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  min-width: 340px;
+  height: 420px;
+  padding: 28px 24px;
+  background: linear-gradient(135deg, #1f1c1a 0%, #2a2725 100%);
+  border: none;
+  border-radius: 24px;
+  animation: cardFadeUp 0.6s ease-out backwards;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+/* Card with media background (video or image) */
+.cardWithMedia {
+  padding: 0;
+}
+
+.cardMedia {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px 24px;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+}
+
+.card:not(.cardWithMedia) .cardContent {
+  background: transparent;
+}
+
+
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card title - JetBrains Mono */
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.01em;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+/* Card description - hidden */
+.cardDescription {
+  display: none;
+}
+
+/* Card footer with CTA */
+.cardFooter {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* CTA button - Burgundy brand color */
+.cardCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-family: var(--ifm-font-family-base);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #ffffff;
+  background: var(--ot-primary, #a61d2d);
+  border: none;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 0 0 rgba(166, 29, 45, 0);
+}
+
+.cardCta:hover {
+  background: var(--ot-primary-light, #b93343);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 0 20px 0 rgba(166, 29, 45, 0.35);
+}
+
+.cardCta:active {
+  transform: scale(0.98);
+}
+
+/* Arrow animation on hover */
+.ctaArrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.cardCta:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* Focus styles for accessibility */
+.cardCta:focus-visible {
+  outline: 2px solid var(--ot-primary, #a61d2d);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+/* Large screens - bigger cards */
+@media (min-width: 1400px) {
+  .card {
+    width: 380px;
+    min-width: 380px;
+    height: 480px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1800px) {
+  .card {
+    width: 420px;
+    min-width: 420px;
+    height: 520px;
+  }
+
+  .cardTitle {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .card {
+    width: 300px;
+    min-width: 300px;
+    height: 380px;
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .cardWithMedia {
+    padding: 0;
+  }
+
+  .cardContent {
+    padding: 24px 20px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .cardCta {
+    padding: 10px 16px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .card {
+    width: 280px;
+    min-width: 280px;
+    height: 360px;
+  }
+
+  .cardTitle {
+    font-size: 15px;
+    line-height: 20px;
+  }
+}
+
+/* ============================================
+   PREFERS REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+
+  .ctaArrow {
+    transition: none;
+  }
+
+  .cardCta:hover .ctaArrow {
+    transform: none;
+  }
+}
