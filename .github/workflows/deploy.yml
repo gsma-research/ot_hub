@@ -33,8 +33,6 @@ jobs:
 
       - name: Build website
         run: npm run build
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
