@@ -238,30 +238,6 @@ export function getBenchmarksByCategory(category: BenchmarkCategory): typeof LEA
  */
 export const TCI_CONFIG = {
   /**
-   * Benchmark difficulties (estimated based on average scores - lower avg = harder)
-   * Higher value = easier benchmark
-   */
-  benchmarkDifficulty: {
-    teleqna: 0.7,   // Easier - higher avg scores
-    telelogs: 0.3,  // Harder - lower avg scores
-    telemath: 0.4,  // Medium-hard
-    tsg: 0.4,       // Medium-hard
-    teletables: 0.3, // Harder - similar to TeleLogs
-  } as Record<string, number>,
-
-  /**
-   * Benchmark slopes (how discriminating each benchmark is)
-   * Higher value = more discriminating
-   */
-  benchmarkSlope: {
-    teleqna: 1.2,
-    telelogs: 1.5,
-    telemath: 1.3,
-    tsg: 1.2,
-    teletables: 1.5,
-  } as Record<string, number>,
-
-  /**
    * Base error values for error bar calculations
    */
   baseErrors: {
@@ -272,22 +248,8 @@ export const TCI_CONFIG = {
     teletables: 3.6,
     tci: 1.8,
   } as Record<string, number>,
-
-  /**
-   * Minimum number of benchmark scores required to calculate TCI
-   */
-  minScoresRequired: 3,
-
-  /**
-   * TCI scale parameters
-   */
-  baseScore: 115,
-  scaleFactor: 20,
 };
 
-/**
- * Get TCI color based on score tier
- */
 /**
  * Benchmark colors for frontier chart visualization
  */

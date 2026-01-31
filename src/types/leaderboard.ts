@@ -126,3 +126,45 @@ export interface BenchmarkConfig {
   questions?: BenchmarkQuestion[];
   comingSoon?: boolean;
 }
+
+/**
+ * Type-safe benchmark score keys that exist as numeric fields on LeaderboardEntry
+ */
+export type BenchmarkScoreKey = 'teleqna' | 'telelogs' | 'telemath' | 'tsg' | 'teletables';
+
+/**
+ * Type guard to check if a key is a valid benchmark score key
+ */
+export function isBenchmarkScoreKey(key: string): key is BenchmarkScoreKey {
+  return ['teleqna', 'telelogs', 'telemath', 'tsg', 'teletables'].includes(key);
+}
+
+/**
+ * Safely extract a benchmark score from a LeaderboardEntry.
+ * Returns undefined if the key is invalid or the score is null.
+ */
+export function getBenchmarkScore(entry: LeaderboardEntry, key: string): number | undefined {
+  if (!isBenchmarkScoreKey(key)) {
+    return undefined;
+  }
+  const score = entry[key];
+  return typeof score === 'number' ? score : undefined;
+}
+
+/**
+ * Check if an entry has a valid release date
+ */
+export function hasValidReleaseDate(entry: LeaderboardEntry): entry is LeaderboardEntry & { releaseDate: string } {
+  return typeof entry.releaseDate === 'string' && entry.releaseDate.length > 0;
+}
+
+/**
+ * Parse release date string to timestamp. Returns undefined if invalid.
+ */
+export function parseReleaseDate(entry: LeaderboardEntry): number | undefined {
+  if (!hasValidReleaseDate(entry)) {
+    return undefined;
+  }
+  const timestamp = new Date(entry.releaseDate).getTime();
+  return Number.isNaN(timestamp) ? undefined : timestamp;
+}

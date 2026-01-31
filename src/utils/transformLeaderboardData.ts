@@ -2,9 +2,9 @@ import type { LeaderboardEntry } from '../types/leaderboard';
 import { normalizeProviderName } from '../constants/providers';
 
 /**
- * Raw row data from HuggingFace dataset API
+ * Raw row data from the leaderboard JSON file
  */
-interface HuggingFaceRow {
+interface RawLeaderboardRow {
   model: string;
   teleqna: [number, number, number] | null; // [score, stderr, n_samples]
   telelogs: [number, number, number] | null;
@@ -16,12 +16,12 @@ interface HuggingFaceRow {
 }
 
 /**
- * Response structure from HuggingFace datasets API /rows endpoint
+ * Structure of the leaderboard JSON data file
  */
-interface HuggingFaceResponse {
+interface RawLeaderboardData {
   rows: Array<{
     row_idx: number;
-    row: HuggingFaceRow;
+    row: RawLeaderboardRow;
     truncated_cells: string[];
   }>;
 }
@@ -49,9 +49,9 @@ function calculateMean(scores: (number | null)[]): number | null {
 }
 
 /**
- * Transform HuggingFace API response to LeaderboardEntry array
+ * Transform raw leaderboard JSON data to LeaderboardEntry array
  */
-export function transformHuggingFaceData(response: HuggingFaceResponse): LeaderboardEntry[] {
+export function transformLeaderboardData(response: RawLeaderboardData): LeaderboardEntry[] {
   const entries: LeaderboardEntry[] = response.rows.map((item) => {
     const row = item.row;
     const { model, provider } = parseModelAndProvider(row.model);

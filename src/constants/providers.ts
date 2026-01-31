@@ -73,13 +73,6 @@ export function getProviderColor(provider: string): string {
 }
 
 /**
- * Get provider logo filename (returns undefined if not found)
- */
-export function getProviderLogo(provider: string): string | undefined {
-  return PROVIDER_LOGOS[provider];
-}
-
-/**
  * Base path for logo images
  */
 export const LOGO_BASE_PATH = '/img/logos/';

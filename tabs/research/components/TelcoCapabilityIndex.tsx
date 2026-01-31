@@ -11,16 +11,15 @@ import {
   Cell,
 } from 'recharts';
 import type { TCIDataPoint } from '../../../src/types/leaderboard';
+import { parseReleaseDate } from '../../../src/types/leaderboard';
 import { useLeaderboardData } from '../../../src/hooks/useLeaderboardData';
-import { useIsMobile } from '../../../src/hooks/useIsMobile';
 import { getProviderColor } from '../../../src/constants/providers';
 import { formatMonthTick } from '../../../src/utils/dateFormatting';
 import ProviderIcon from '../../../src/components/ProviderIcon';
 import DateRangeSlider from './DateRangeSlider';
 import { fitLinearRegression, generateCombinedRegressionData } from '../../../src/utils/linearRegression';
-
-// Number of top models to label on the chart
-const TOP_LABELED_COUNT = 5;
+import { calculateQuarterBounds, generateQuarterlyTicks, calculateXAxisDomain } from '../../../src/utils/chartUtils';
+import { DATE_PADDING_MS } from '../../../src/constants/ui';
 
 interface LegendItemProps {
   provider: { name: string; color: string };
@@ -151,53 +150,8 @@ const CustomDot: React.FC<CustomDotProps> = ({
   );
 };
 
-interface TopLabelProps {
-  data: TCIDataPoint[];
-  xScale: (value: number) => number;
-  yScale: (value: number) => number;
-}
-
-const TopLabels: React.FC<TopLabelProps> = ({ data, xScale, yScale }) => {
-  // Get top 5 models by TCI score
-  const topModels = useMemo(() => {
-    return [...data]
-      .sort((a, b) => b.tci - a.tci)
-      .slice(0, TOP_LABELED_COUNT);
-  }, [data]);
-
-  return (
-    <g className="tci-labels">
-      {topModels.map((model, idx) => {
-        const x = xScale(model.releaseDate);
-        const y = yScale(model.tci);
-
-        // Offset labels to avoid overlap
-        const yOffset = -14 - (idx % 2) * 10;
-
-        return (
-          <text
-            key={model.model}
-            x={x}
-            y={y + yOffset}
-            fill={model.color}
-            fontSize={10}
-            fontWeight={500}
-            fontFamily="'Source Sans 3', sans-serif"
-            textAnchor="middle"
-            className="tci-label"
-            style={{ animationDelay: `${(idx + data.length) * 25}ms` }}
-          >
-            {model.model}
-          </text>
-        );
-      })}
-    </g>
-  );
-};
-
 export default function TelcoCapabilityIndex(): JSX.Element {
   const { data: leaderboardData, loading, error } = useLeaderboardData();
-  const isMobile = useIsMobile();
 
   // Selection state
   const [selectedOrgs, setSelectedOrgs] = useState<Set<string>>(new Set());
@@ -246,10 +200,14 @@ export default function TelcoCapabilityIndex(): JSX.Element {
     return () => clearTimeout(timer);
   }, []);
 
-  // Transform data for chart
+  // Transform data for chart - only include entries with valid TCI and release date
   const chartData = useMemo((): TCIDataPoint[] => {
     return leaderboardData
-      .filter((entry) => entry.tci !== null)
+      .filter((entry) => {
+        if (entry.tci === null) return false;
+        const releaseDate = parseReleaseDate(entry);
+        return releaseDate !== undefined;
+      })
       .map((entry) => ({
         rank: entry.rank,
         tci: entry.tci as number,
@@ -262,58 +220,14 @@ export default function TelcoCapabilityIndex(): JSX.Element {
         telemath: entry.telemath,
         tsg: entry.tsg,
         teletables: entry.teletables,
-        releaseDate: entry.releaseDate ? new Date(entry.releaseDate).getTime() : Date.now(),
+        releaseDate: parseReleaseDate(entry) as number,
       }));
   }, [leaderboardData]);
 
   // Calculate date bounds for slider (snapped to quarters)
   const dateBounds = useMemo(() => {
-    if (chartData.length === 0) {
-      return {
-        min: new Date('2023-01-01').getTime(),
-        max: new Date('2026-01-01').getTime(),
-        quarters: [] as { timestamp: number; label: string }[],
-      };
-    }
-
     const dates = chartData.map((d) => d.releaseDate);
-    const rawMin = Math.min(...dates);
-    const rawMax = Math.max(...dates);
-
-    // Floor min to quarter start
-    const minDate = new Date(rawMin);
-    const minQuarterStart = new Date(
-      minDate.getFullYear(),
-      Math.floor(minDate.getMonth() / 3) * 3,
-      1
-    ).getTime();
-
-    // Ceiling max to next quarter start
-    const maxDate = new Date(rawMax);
-    const maxQuarterEnd = new Date(
-      maxDate.getFullYear(),
-      (Math.floor(maxDate.getMonth() / 3) + 1) * 3,
-      1
-    ).getTime();
-
-    // Generate month labels for slider
-    const quarters: { timestamp: number; label: string }[] = [];
-    let current = new Date(minQuarterStart);
-
-    while (current.getTime() <= maxQuarterEnd) {
-      const month = current.toLocaleString('default', { month: 'short' });
-      quarters.push({
-        timestamp: current.getTime(),
-        label: `${month}. ${current.getFullYear()}`,
-      });
-      current.setMonth(current.getMonth() + 3);
-    }
-
-    return {
-      min: minQuarterStart,
-      max: maxQuarterEnd,
-      quarters,
-    };
+    return calculateQuarterBounds(dates);
   }, [chartData]);
 
   // Filter chart data by date range
@@ -327,34 +241,8 @@ export default function TelcoCapabilityIndex(): JSX.Element {
 
   // Generate quarterly tick values for X-axis
   const quarterlyTicks = useMemo(() => {
-    if (chartData.length === 0) return [];
-
     const dates = chartData.map((d) => d.releaseDate);
-    const minDate = Math.min(...dates);
-    const maxDate = Math.max(...dates);
-
-    // Add padding (60 days) to bounds
-    const padding = 60 * 24 * 60 * 60 * 1000;
-    const startBound = minDate - padding;
-    const endBound = maxDate + padding;
-
-    // Get year range
-    const startYear = new Date(startBound).getFullYear();
-    const endYear = new Date(endBound).getFullYear();
-
-    const ticks: number[] = [];
-    const quarterMonths = [0, 3, 6, 9]; // Jan, Apr, Jul, Oct
-
-    for (let year = startYear; year <= endYear + 1; year++) {
-      for (const month of quarterMonths) {
-        const tickDate = new Date(year, month, 1).getTime();
-        if (tickDate >= startBound && tickDate <= endBound) {
-          ticks.push(tickDate);
-        }
-      }
-    }
-
-    return ticks;
+    return generateQuarterlyTicks(dates);
   }, [chartData]);
 
   // Extract unique providers
@@ -408,15 +296,8 @@ export default function TelcoCapabilityIndex(): JSX.Element {
 
   // X-axis (date) domain
   const xAxisDomain = useMemo(() => {
-    if (chartData.length === 0) {
-      return [new Date('2023-01-01').getTime(), new Date('2026-01-01').getTime()];
-    }
     const dates = chartData.map((d) => d.releaseDate);
-    const minDate = Math.min(...dates);
-    const maxDate = Math.max(...dates);
-    // Add padding (2 months on each side)
-    const padding = 60 * 24 * 60 * 60 * 1000; // 60 days in ms
-    return [minDate - padding, maxDate + padding];
+    return calculateXAxisDomain(dates);
   }, [chartData]);
 
   // Linear regression line and confidence band data
@@ -428,13 +309,12 @@ export default function TelcoCapabilityIndex(): JSX.Element {
     const filteredDates = filteredChartData.map((d) => d.releaseDate);
     const filteredMin = Math.min(...filteredDates);
     const filteredMax = Math.max(...filteredDates);
-    const padding = 60 * 24 * 60 * 60 * 1000; // 60 days
 
     return generateCombinedRegressionData(
       filteredChartData,
       params,
-      filteredMin - padding,
-      filteredMax + padding,
+      filteredMin - DATE_PADDING_MS,
+      filteredMax + DATE_PADDING_MS,
       50
     );
   }, [filteredChartData]);

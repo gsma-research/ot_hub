@@ -14,11 +14,15 @@ export function formatMonthTick(timestamp: number): string {
 }
 
 /**
- * Format date for display on chart tooltips
+ * Format a date string to uppercase locale format (e.g., "JAN 8, 2026")
+ * Used in blog cards and other display components.
  */
-export function formatReleaseDate(timestamp: number): string {
-  const date = new Date(timestamp);
-  const month = date.toLocaleString('default', { month: 'short' });
-  const year = date.getFullYear();
-  return `${month}. ${year}`;
+export function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).toUpperCase();
 }
+
