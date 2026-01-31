@@ -26,14 +26,12 @@ export default function FeatureCard({
     ? { href, target: '_blank', rel: 'noopener noreferrer' }
     : { to: href };
 
-  const CardWrapper = isExternal ? 'a' : Link;
   const hasMedia = videoSrc || imageSrc;
 
   return (
-    <CardWrapper
+    <div
       className={`${styles.card} ${hasMedia ? styles.cardWithMedia : ''}`}
       style={{ animationDelay: `${animationDelay}ms` }}
-      {...linkProps}
     >
       {videoSrc && (
         <video
@@ -60,15 +58,29 @@ export default function FeatureCard({
         <p className={styles.cardDescription}>{description}</p>
         {ctaText && (
           <div className={styles.cardFooter}>
-            <span className={styles.cardCta}>
-              {ctaText}
-              <span className={styles.ctaArrow} aria-hidden="true">
-                →
-              </span>
-            </span>
+            {isExternal ? (
+              <a
+                href={linkProps.href}
+                target={linkProps.target}
+                rel={linkProps.rel}
+                className={styles.cardCta}
+              >
+                {ctaText}
+                <span className={styles.ctaArrow} aria-hidden="true">
+                  →
+                </span>
+              </a>
+            ) : (
+              <Link to={linkProps.to} className={styles.cardCta}>
+                {ctaText}
+                <span className={styles.ctaArrow} aria-hidden="true">
+                  →
+                </span>
+              </Link>
+            )}
           </div>
         )}
       </div>
-    </CardWrapper>
+    </div>
   );
 }

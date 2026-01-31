@@ -14,7 +14,7 @@ import { useLeaderboardData } from '../../../src/hooks/useLeaderboardData';
 import { BENCHMARKS, BENCHMARK_COLORS } from '../../../src/constants/benchmarks';
 import { formatMonthTick } from '../../../src/utils/dateFormatting';
 import { calculateQuarterBounds, generateQuarterlyTicks, calculateXAxisDomain } from '../../../src/utils/chartUtils';
-import BenchmarkCheckboxPanel from './BenchmarkCheckboxPanel';
+import BenchmarkLegend from './BenchmarkLegend';
 import DateRangeSlider from './DateRangeSlider';
 
 interface FrontierPoint {
@@ -198,15 +198,6 @@ export default function BenchmarksFrontierChart(): JSX.Element {
     });
   }, []);
 
-  // Select all/none
-  const selectAllBenchmarks = useCallback(() => {
-    setSelectedBenchmarks(new Set(availableBenchmarkKeys));
-  }, [availableBenchmarkKeys]);
-
-  const selectNoneBenchmarks = useCallback(() => {
-    setSelectedBenchmarks(new Set());
-  }, []);
-
   // Filter to entries with valid release dates for all date-based calculations
   const entriesWithDates = useMemo(() => {
     return leaderboardData.filter((entry) => parseReleaseDate(entry) !== undefined);
@@ -250,16 +241,19 @@ export default function BenchmarksFrontierChart(): JSX.Element {
     return generateQuarterlyTicks(dates);
   }, [entriesWithDates]);
 
-  // Get benchmark info for selected benchmarks
-  const selectedBenchmarkInfo = useMemo(() => {
-    return BENCHMARKS.filter(
-      (b) => !b.comingSoon && selectedBenchmarks.has(b.key)
-    ).map((b) => ({
+  // Get all available benchmarks for legend
+  const benchmarkInfo = useMemo(() => {
+    return BENCHMARKS.filter((b) => !b.comingSoon).map((b) => ({
       key: b.key,
       title: b.title,
       color: BENCHMARK_COLORS[b.key] || '#6B7280',
     }));
-  }, [selectedBenchmarks]);
+  }, []);
+
+  // Get benchmark info for selected benchmarks (for rendering lines)
+  const selectedBenchmarkInfo = useMemo(() => {
+    return benchmarkInfo.filter((b) => selectedBenchmarks.has(b.key));
+  }, [benchmarkInfo, selectedBenchmarks]);
 
   if (loading) {
     return <div className="tci-loading">Loading benchmark data...</div>;
@@ -271,86 +265,84 @@ export default function BenchmarksFrontierChart(): JSX.Element {
 
   return (
     <div className="frontier-chart-container">
-      <div className="frontier-chart-main">
-        <div className="frontier-chart-wrapper">
-          <ResponsiveContainer width="100%" height={500}>
-            <ComposedChart
-              data={frontierData}
-              margin={{ top: 40, right: 20, bottom: 35, left: 5 }}
-            >
-              <CartesianGrid
-                strokeDasharray="4 4"
-                stroke="#b8b4ac"
-                strokeOpacity={0.5}
-                vertical={false}
-                horizontal={true}
-              />
-              <XAxis
-                type="number"
-                dataKey="releaseDate"
-                domain={xAxisDomain}
-                ticks={quarterlyTicks}
-                tickFormatter={formatMonthTick}
-                tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif", dy: 10 }}
-                axisLine={{ stroke: '#d4d0c8' }}
-                tickLine={false}
-                scale="time"
-                name="Release Date"
-                interval="preserveStartEnd"
-              />
-              <YAxis
-                type="number"
-                domain={[0, 100]}
-                ticks={[0, 20, 40, 60, 80, 100]}
-                tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
-                axisLine={{ stroke: '#d4d0c8' }}
-                tickLine={false}
-                name="Accuracy"
-                label={{
-                  value: 'Accuracy (%)',
-                  angle: 0,
-                  position: 'top',
-                  offset: 20,
-                  dx: 30,
-                  style: { fontSize: '14px', fontWeight: 500, fill: '#5c5552', fontFamily: "'Inter', sans-serif" },
-                }}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              {/* Render a line for each selected benchmark */}
-              {selectedBenchmarkInfo.map((benchmark) => (
-                <Line
-                  key={benchmark.key}
-                  dataKey={benchmark.key}
-                  name={benchmark.title}
-                  type="stepAfter"
-                  stroke={benchmark.color}
-                  strokeWidth={2.5}
-                  dot={false}
-                  connectNulls={false}
-                  isAnimationActive={false}
-                />
-              ))}
-            </ComposedChart>
-          </ResponsiveContainer>
-
-          {/* Date Range Slider */}
-          <DateRangeSlider
-            minDate={dateBounds.min}
-            maxDate={dateBounds.max}
-            value={dateRange ?? [dateBounds.min, dateBounds.max]}
-            onChange={setDateRange}
-            quarterLabels={dateBounds.quarters}
-          />
-        </div>
-      </div>
-
-      {/* Benchmark selection panel */}
-      <BenchmarkCheckboxPanel
+      {/* Benchmark Legend - horizontal pills above chart */}
+      <BenchmarkLegend
+        benchmarks={benchmarkInfo}
         selectedBenchmarks={selectedBenchmarks}
         onToggle={toggleBenchmark}
-        onSelectAll={selectAllBenchmarks}
-        onSelectNone={selectNoneBenchmarks}
+        dataPointCount={frontierData.length}
       />
+
+      <div className="frontier-chart-wrapper">
+        <ResponsiveContainer width="100%" height={500}>
+          <ComposedChart
+            data={frontierData}
+            margin={{ top: 40, right: 20, bottom: 35, left: 5 }}
+          >
+            <CartesianGrid
+              strokeDasharray="4 4"
+              stroke="#b8b4ac"
+              strokeOpacity={0.5}
+              vertical={false}
+              horizontal={true}
+            />
+            <XAxis
+              type="number"
+              dataKey="releaseDate"
+              domain={xAxisDomain}
+              ticks={quarterlyTicks}
+              tickFormatter={formatMonthTick}
+              tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif", dy: 10 }}
+              axisLine={{ stroke: '#d4d0c8' }}
+              tickLine={false}
+              scale="time"
+              name="Release Date"
+              interval="preserveStartEnd"
+            />
+            <YAxis
+              type="number"
+              domain={[0, 100]}
+              ticks={[0, 20, 40, 60, 80, 100]}
+              tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
+              axisLine={{ stroke: '#d4d0c8' }}
+              tickLine={false}
+              name="Accuracy"
+              label={{
+                value: 'Accuracy (%)',
+                angle: 0,
+                position: 'top',
+                offset: 20,
+                dx: 30,
+                style: { fontSize: '14px', fontWeight: 500, fill: '#5c5552', fontFamily: "'Inter', sans-serif" },
+              }}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            {/* Render a line for each selected benchmark */}
+            {selectedBenchmarkInfo.map((benchmark) => (
+              <Line
+                key={benchmark.key}
+                dataKey={benchmark.key}
+                name={benchmark.title}
+                type="stepAfter"
+                stroke={benchmark.color}
+                strokeWidth={2.5}
+                dot={false}
+                connectNulls={false}
+                isAnimationActive={false}
+              />
+            ))}
+          </ComposedChart>
+        </ResponsiveContainer>
+
+        {/* Date Range Slider */}
+        <DateRangeSlider
+          minDate={dateBounds.min}
+          maxDate={dateBounds.max}
+          value={dateRange ?? [dateBounds.min, dateBounds.max]}
+          onChange={setDateRange}
+          quarterLabels={dateBounds.quarters}
+        />
+      </div>
     </div>
   );
 }

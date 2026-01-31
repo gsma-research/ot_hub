@@ -16,6 +16,7 @@
   flex-shrink: 0;
   text-decoration: none;
   overflow: hidden;
+  cursor: default; /* Card is not clickable, only CTA button is */
 }
 
 /* Card with media background (video or image) */
@@ -30,6 +31,7 @@
   height: 100%;
   object-fit: cover;
   z-index: 0;
+  pointer-events: auto; /* Ensure video controls are accessible */
 }
 
 .cardContent {

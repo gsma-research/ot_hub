@@ -83,6 +83,7 @@ export function calculateQuarterBounds(dates: number[]): DateBounds {
 /**
  * Generate quarterly tick values for X-axis.
  * Creates ticks at Jan, Apr, Jul, Oct for each year in the date range.
+ * Only generates ticks within the actual data range (not the padded domain).
  *
  * @param dates Array of timestamps from data points
  * @returns Array of timestamps for quarterly ticks
@@ -93,12 +94,10 @@ export function generateQuarterlyTicks(dates: number[]): number[] {
   const minDate = Math.min(...dates);
   const maxDate = Math.max(...dates);
 
-  // Add padding to bounds
-  const startBound = minDate - DATE_PADDING_MS;
-  const endBound = maxDate + DATE_PADDING_MS;
-
-  const startYear = new Date(startBound).getFullYear();
-  const endYear = new Date(endBound).getFullYear();
+  // Use actual data bounds (not padded) for tick generation
+  // This ensures we don't show empty quarters beyond the data
+  const startYear = new Date(minDate).getFullYear();
+  const endYear = new Date(maxDate).getFullYear();
 
   const ticks: number[] = [];
   const quarterMonths = [0, 3, 6, 9]; // Jan, Apr, Jul, Oct
@@ -106,7 +105,10 @@ export function generateQuarterlyTicks(dates: number[]): number[] {
   for (let year = startYear; year <= endYear + 1; year++) {
     for (const month of quarterMonths) {
       const tickDate = new Date(year, month, 1).getTime();
-      if (tickDate >= startBound && tickDate <= endBound) {
+      // Only include ticks within the actual data range (with small buffer)
+      // Use 30-day buffer to ensure edge quarters are included
+      const buffer = 30 * 24 * 60 * 60 * 1000; // 30 days
+      if (tickDate >= minDate - buffer && tickDate <= maxDate + buffer) {
         ticks.push(tickDate);
       }
     }
@@ -163,4 +165,30 @@ export function calculateBarWidth(
   // Guard against division by zero when all scores are identical
   if (range === 0) return MIN_BAR_WIDTH_PERCENT;
   return Math.max(MIN_BAR_WIDTH_PERCENT, ((score - minScore) / range) * 100);
+}
+
+/**
+ * Calculate minor gridline positions by subdividing major tick intervals.
+ *
+ * @param majorTicks Array of major tick positions
+ * @param divisions Number of subdivisions between each pair of major ticks
+ * @returns Array of minor gridline positions
+ */
+export function calculateMinorGridPositions(
+  majorTicks: number[],
+  divisions: number
+): number[] {
+  const minorPositions: number[] = [];
+
+  for (let i = 0; i < majorTicks.length - 1; i++) {
+    const start = majorTicks[i];
+    const end = majorTicks[i + 1];
+    const interval = (end - start) / divisions;
+
+    for (let j = 1; j < divisions; j++) {
+      minorPositions.push(start + interval * j);
+    }
+  }
+
+  return minorPositions;
 }

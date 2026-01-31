@@ -19,5 +19,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Generated data (fetched at build time)
-static/data/leaderboard.json
+# Generated data (now committed to git for reliable deployments)
