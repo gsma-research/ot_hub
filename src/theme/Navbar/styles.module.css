@@ -19,7 +19,34 @@
   height: 100%;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+}
+
+/* Centered content wrapper */
+.navCenter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* GSMA Logo */
+.gsmaLogo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.gsmaLogoImg {
+  height: 1.5rem;
+  width: auto;
+}
+
+/* Separator between GSMA and Open-Telco */
+.brandSeparator {
+  color: #a8a29e;
+  font-weight: 300;
+  font-size: 1.25rem;
+  user-select: none;
 }
 
 /* Brand with collapse animation - fixed width prevents nav shift */
@@ -31,7 +58,7 @@
   color: #2d2926;
   position: relative;
   flex-shrink: 0;
-  width: 158px; /* Matches expanded logo width - nav items stay static */
+  width: 158px; /* Fixed width matches expanded "OPEN-TELCO AI" - nav items stay static */
 }
 
 .brand:hover {
@@ -112,6 +139,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  margin-left: 1rem;
 }
 
 .navItemsRight {
@@ -456,6 +484,11 @@
 @media (max-width: 996px) {
   .navbarInner {
     padding: 0 1rem;
+    justify-content: space-between;
+  }
+
+  .navCenter {
+    flex: 1;
   }
 
   .navItems {
@@ -487,6 +520,14 @@
     opacity: 1;
     max-width: none;
     overflow: visible;
+  }
+
+  .gsmaLogoImg {
+    height: 1.25rem;
+  }
+
+  .brand {
+    width: auto; /* Remove fixed width on mobile */
   }
 }
 

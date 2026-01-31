@@ -124,7 +124,6 @@ export default function Navbar(): JSX.Element {
   // Listen for scroll on any element using capture phase
   useEffect(() => {
     const handleScroll = (e: Event) => {
-      // Get scroll position from the event target (the actual scrolling element)
       const target = e.target as Element | Document;
       let scrollY = 0;
 
@@ -140,14 +139,9 @@ export default function Navbar(): JSX.Element {
     // Use capture phase to catch scroll events from any element
     document.addEventListener('scroll', handleScroll, { capture: true, passive: true });
 
-    // Initial check - find any scrolled container
-    const checkInitialScroll = () => {
-      const scrollY = window.scrollY ||
-        document.documentElement.scrollTop ||
-        (document.querySelector('[class*="main"]')?.scrollTop ?? 0);
-      setIsCollapsed(scrollY > 50);
-    };
-    checkInitialScroll();
+    // Initial check
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    setIsCollapsed(scrollY > 50);
 
     return () => {
       document.removeEventListener('scroll', handleScroll, { capture: true });
@@ -206,34 +200,44 @@ export default function Navbar(): JSX.Element {
   return (
     <nav className={`navbar ${styles.navbar}`}>
         <div className={styles.navbarInner}>
-        {/* Logo & Brand with collapse animation */}
-        <Link to="/" className={`${styles.brand} ${isCollapsed ? styles.brandCollapsed : ''}`}>
-          {/* Animated logo text - individual spans for smooth morphing */}
-          <div className={styles.logoText}>
-            {/* "O" - stays visible, becomes part of "OT" */}
-            <span className={styles.letterFixed}>
-              O
-            </span>
+        {/* Centered content wrapper */}
+        <div className={styles.navCenter}>
+          {/* GSMA Logo */}
+          <Link to="/" className={styles.gsmaLogo}>
+            <img src="/img/footer/gsma-logo.svg" alt="GSMA" className={styles.gsmaLogoImg} />
+          </Link>
 
-            {/* "PEN-" - fades out on scroll */}
-            <span className={`${styles.letterPen} ${isCollapsed ? styles.letterPenCollapsed : ''}`}>
-              PEN-
-            </span>
+          {/* Separator */}
+          <span className={styles.brandSeparator}>|</span>
 
-            {/* "T" - stays visible, becomes part of "OT" */}
-            <span className={styles.letterFixed}>
-              T
-            </span>
+          {/* Logo & Brand with collapse animation */}
+          <Link to="/" className={`${styles.brand} ${isCollapsed ? styles.brandCollapsed : ''}`}>
+            {/* Animated logo text - individual spans for smooth morphing */}
+            <div className={styles.logoText}>
+              {/* "O" - stays visible, becomes part of "OT" */}
+              <span className={styles.letterFixed}>
+                O
+              </span>
 
-            {/* "ELCO AI" - fades out on scroll */}
-            <span className={`${styles.letterElco} ${isCollapsed ? styles.letterElcoCollapsed : ''}`}>
-              ELCO AI
-            </span>
-          </div>
-        </Link>
+              {/* "PEN-" - fades out on scroll */}
+              <span className={`${styles.letterPen} ${isCollapsed ? styles.letterPenCollapsed : ''}`}>
+                PEN-
+              </span>
 
-        {/* Nav Items */}
-        <div className={styles.navItems}>
+              {/* "T" - stays visible, becomes part of "OT" */}
+              <span className={styles.letterFixed}>
+                T
+              </span>
+
+              {/* "ELCO AI" - fades out on scroll */}
+              <span className={`${styles.letterElco} ${isCollapsed ? styles.letterElcoCollapsed : ''}`}>
+                ELCO AI
+              </span>
+            </div>
+          </Link>
+
+          {/* Nav Items */}
+          <div className={styles.navItems}>
           <Dropdown
             label="Research"
             items={[
@@ -243,7 +247,8 @@ export default function Navbar(): JSX.Element {
             ]}
           />
           <NavLink to="/leaderboard">Leaderboard</NavLink>
-          <NavLink to="/docs">Documentation</NavLink>
+          {/* <NavLink to="/docs">Documentation</NavLink> */}
+          </div>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -301,9 +306,9 @@ export default function Navbar(): JSX.Element {
             <Link to="/leaderboard" className={styles.mobileMenuItem} onClick={closeMobileMenu}>
               Leaderboard
             </Link>
-            <Link to="/docs" className={styles.mobileMenuItem} onClick={closeMobileMenu}>
+            {/* <Link to="/docs" className={styles.mobileMenuItem} onClick={closeMobileMenu}>
               Documentation
-            </Link>
+            </Link> */}
           </div>
 
         </div>

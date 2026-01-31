@@ -2,6 +2,7 @@
 id: dashboards
 title: Dashboard
 sidebar_label: Dashboard
+hide_title: true
 hide_table_of_contents: true
 ---
 
