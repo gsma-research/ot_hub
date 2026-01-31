@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
   Cell,
+  ReferenceArea,
 } from 'recharts';
 import type { TCIDataPoint } from '../../../src/types/leaderboard';
 import { parseReleaseDate } from '../../../src/types/leaderboard';
@@ -377,11 +378,20 @@ export default function TelcoCapabilityIndex(): JSX.Element {
       <div className="tci-chart-wrapper">
         <ResponsiveContainer width="100%" height={500}>
           <ComposedChart margin={{ top: 58, right: 20, bottom: 35, left: 5 }}>
+            {/* Background fill for entire chart area */}
+            <ReferenceArea
+              x1={xAxisDomain[0]}
+              x2={xAxisDomain[1]}
+              y1={yAxisDomain[0]}
+              y2={yAxisDomain[1]}
+              fill="#faf8f5"
+              fillOpacity={1}
+              stroke="none"
+            />
             <CartesianGrid
-              strokeDasharray="4 4"
-              stroke="#b8b4ac"
-              strokeOpacity={0.5}
-              vertical={false}
+              stroke="#e5e5e5"
+              strokeOpacity={0.8}
+              vertical={true}
               horizontal={true}
             />
             <XAxis
@@ -390,12 +400,12 @@ export default function TelcoCapabilityIndex(): JSX.Element {
               domain={xAxisDomain}
               ticks={quarterlyTicks}
               tickFormatter={formatMonthTick}
-              tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
+              tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif", dy: 10 }}
               axisLine={{ stroke: '#d4d0c8' }}
               tickLine={false}
               scale="time"
               name="Release Date"
-              interval={0}
+              interval="preserveStartEnd"
             />
             <YAxis
               type="number"
@@ -426,7 +436,7 @@ export default function TelcoCapabilityIndex(): JSX.Element {
                   fillOpacity={0.2}
                   isAnimationActive={false}
                   legendType="none"
-                  baseValue="dataMin"
+                  baseValue={yAxisDomain[0]}
                 />
                 <Area
                   data={regressionData}
@@ -436,7 +446,7 @@ export default function TelcoCapabilityIndex(): JSX.Element {
                   fillOpacity={1}
                   isAnimationActive={false}
                   legendType="none"
-                  baseValue="dataMin"
+                  baseValue={yAxisDomain[0]}
                 />
               </>
             )}

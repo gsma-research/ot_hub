@@ -291,12 +291,12 @@ export default function BenchmarksFrontierChart(): JSX.Element {
                 domain={xAxisDomain}
                 ticks={quarterlyTicks}
                 tickFormatter={formatMonthTick}
-                tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
+                tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif", dy: 10 }}
                 axisLine={{ stroke: '#d4d0c8' }}
                 tickLine={false}
                 scale="time"
                 name="Release Date"
-                interval={0}
+                interval="preserveStartEnd"
               />
               <YAxis
                 type="number"

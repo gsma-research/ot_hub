@@ -3,6 +3,27 @@
  */
 
 /**
+ * Fitted IRT (Item Response Theory) parameters from the 2PL model.
+ *
+ * These parameters are dynamically fitted from leaderboard data,
+ * ensuring benchmark difficulty adapts as models improve.
+ */
+export interface IRTParameters {
+  /** Difficulty parameter (D_b) for each benchmark - higher = harder */
+  difficulty: Record<string, number>;
+  /** Slope/discrimination parameter (α_b) for each benchmark */
+  slope: Record<string, number>;
+  /** Capability parameter (C_m) for each model */
+  capability: Record<string, number>;
+  /** Final loss value from optimization */
+  fitResidual: number;
+  /** Number of models used in fitting */
+  nModels: number;
+  /** Number of benchmarks used in fitting */
+  nBenchmarks: number;
+}
+
+/**
  * Raw entry from the leaderboard JSON file
  */
 export interface LeaderboardEntry {

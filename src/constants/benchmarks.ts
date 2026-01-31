@@ -251,6 +251,50 @@ export const TCI_CONFIG = {
 };
 
 /**
+ * IRT (Item Response Theory) configuration for dynamic TCI calculation
+ */
+export const IRT_CONFIG = {
+  /** Base TCI score (average capability maps to this) */
+  baseScore: 115,
+  /** Scale factor for converting capability to TCI */
+  scaleFactor: 20,
+  /** Minimum number of benchmark scores required to calculate TCI */
+  minScoresRequired: 3,
+
+  /**
+   * Ridge regularization strengths (tuned for sparse data)
+   */
+  regularization: {
+    /** Difficulty regularization toward 0 */
+    lambdaD: 0.1,
+    /** Slope regularization toward 1.0 */
+    lambdaAlpha: 0.5,
+    /** Capability regularization toward 0 */
+    lambdaC: 0.1,
+  },
+
+  /**
+   * Optimization bounds
+   */
+  bounds: {
+    /** Minimum slope value */
+    alphaMin: 0.1,
+    /** Maximum slope value */
+    alphaMax: 5.0,
+  },
+
+  /** Maximum iterations for L-BFGS-B optimization */
+  maxIterations: 1000,
+};
+
+/**
+ * Benchmark keys used for IRT fitting (must match LeaderboardEntry fields)
+ */
+export const BENCHMARK_KEYS = ['teleqna', 'telelogs', 'telemath', 'tsg', 'teletables'] as const;
+
+export type BenchmarkKey = (typeof BENCHMARK_KEYS)[number];
+
+/**
  * Benchmark colors for frontier chart visualization
  */
 export const BENCHMARK_COLORS: Record<string, string> = {
