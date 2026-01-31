@@ -23,6 +23,7 @@ const features = [
       'Track performance over time in frontier models on telecommunication tasks',
     href: '/dashboards',
     videoSrc: '/videos/telco_capability.mp4',
+    ctaText: 'View Dashboards',
   },
   {
     title: 'Models',
@@ -60,6 +61,7 @@ function FeaturesSection(): JSX.Element {
               description={feature.description}
               href={feature.href}
               videoSrc={feature.videoSrc}
+              ctaText={feature.ctaText}
               animationDelay={index * 100}
             />
           ))}

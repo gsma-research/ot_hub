@@ -3537,17 +3537,72 @@ p.tci-intro {
    FRONTIER CHART (Benchmark Timeline)
    ============================================ */
 
-.frontier-chart-container {
+/* Frontier Chart Legend */
+.frontier-legend {
   display: flex;
-  gap: 24px;
-  width: 100%;
-  padding: 20px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 12px 0;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--ot-border);
   font-family: var(--font-display);
 }
 
-.frontier-chart-main {
-  flex: 1;
-  min-width: 0;
+.frontier-legend__count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ot-text);
+  margin-right: 8px;
+}
+
+.frontier-legend__title {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ot-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 4px;
+}
+
+.frontier-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(250, 249, 245, 0.97);
+  border: 1px solid var(--ot-border);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.frontier-legend__item:hover {
+  background: rgba(45, 41, 38, 0.06);
+  border-color: rgba(45, 41, 38, 0.15);
+}
+
+.frontier-legend__item--dimmed {
+  opacity: 0.4;
+}
+
+.frontier-legend__indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.frontier-legend__name {
+  font-size: 12px;
+  color: var(--ot-text);
+}
+
+.frontier-chart-container {
+  display: block;
+  width: 100%;
+  padding: 20px 0;
+  font-family: var(--font-display);
 }
 
 .frontier-chart-wrapper {
@@ -3606,148 +3661,26 @@ p.tci-intro {
   font-variant-numeric: tabular-nums;
 }
 
-/* ============================================
-   BENCHMARK CHECKBOX PANEL
-   ============================================ */
-
-.benchmark-checkbox-panel {
-  width: 180px;
-  flex-shrink: 0;
-  padding: 16px;
-  background: var(--ot-bg-muted);
-  border: 1px solid var(--ot-border);
-  border-radius: 12px;
-  height: fit-content;
-  position: sticky;
-  top: 80px;
-}
-
-.benchmark-checkbox-panel__header {
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--ot-border);
-}
-
-.benchmark-checkbox-panel__title {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--ot-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.benchmark-checkbox-panel__list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.benchmark-checkbox-panel__item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  padding: 6px 8px;
-  margin: 0 -8px;
-  border-radius: 6px;
-  transition: background 150ms ease;
-}
-
-.benchmark-checkbox-panel__item:hover {
-  background: rgba(45, 41, 38, 0.06);
-}
-
-.benchmark-checkbox-panel__item--unchecked {
-  opacity: 0.5;
-}
-
-.benchmark-checkbox-panel__checkbox {
-  display: none;
-}
-
-.benchmark-checkbox-panel__indicator {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-
-.benchmark-checkbox-panel__label {
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ot-text);
-}
-
-.benchmark-checkbox-panel__actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--ot-border);
-}
-
-.benchmark-checkbox-panel__btn {
-  flex: 1;
-  padding: 6px 12px;
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--ot-text-muted);
-  background: transparent;
-  border: 1px solid var(--ot-border);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 150ms ease;
-}
-
-.benchmark-checkbox-panel__btn:hover {
-  color: var(--ot-text);
-  background: rgba(45, 41, 38, 0.04);
-  border-color: var(--ot-text-subtle);
-}
-
 /* Frontier Chart Mobile Responsive */
 @media (max-width: 900px) {
-  .frontier-chart-container {
-    flex-direction: column-reverse;
-    gap: 16px;
+  .frontier-legend {
+    gap: 6px 8px;
+    padding: 10px 0;
+    margin-bottom: 12px;
   }
 
-  .benchmark-checkbox-panel {
+  .frontier-legend__count {
     width: 100%;
-    position: static;
-    padding: 12px 16px;
+    margin-bottom: 4px;
   }
 
-  .benchmark-checkbox-panel__list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 6px 12px;
+  .frontier-legend__title {
+    width: 100%;
+    margin-bottom: 4px;
   }
 
-  .benchmark-checkbox-panel__item {
-    margin: 0;
-    padding: 4px 8px;
-    background: rgba(250, 249, 245, 0.97);
-    border: 1px solid var(--ot-border);
-    border-radius: 20px;
-  }
-
-  .benchmark-checkbox-panel__item:hover {
-    background: rgba(45, 41, 38, 0.06);
-  }
-
-  .benchmark-checkbox-panel__actions {
-    margin-top: 12px;
-    padding-top: 10px;
-    justify-content: flex-start;
-  }
-
-  .benchmark-checkbox-panel__btn {
-    flex: none;
-    padding: 4px 16px;
+  .frontier-legend__item {
+    padding: 4px 10px;
   }
 }
 

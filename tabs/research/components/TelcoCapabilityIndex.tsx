@@ -6,10 +6,10 @@ import {
   Area,
   XAxis,
   YAxis,
-  CartesianGrid,
   ResponsiveContainer,
   Cell,
   ReferenceArea,
+  ReferenceLine,
 } from 'recharts';
 import type { TCIDataPoint } from '../../../src/types/leaderboard';
 import { parseReleaseDate } from '../../../src/types/leaderboard';
@@ -19,8 +19,8 @@ import { formatMonthTick } from '../../../src/utils/dateFormatting';
 import ProviderIcon from '../../../src/components/ProviderIcon';
 import DateRangeSlider from './DateRangeSlider';
 import { fitLinearRegression, generateCombinedRegressionData } from '../../../src/utils/linearRegression';
-import { calculateQuarterBounds, generateQuarterlyTicks, calculateXAxisDomain } from '../../../src/utils/chartUtils';
-import { DATE_PADDING_MS } from '../../../src/constants/ui';
+import { calculateQuarterBounds, generateQuarterlyTicks, calculateXAxisDomain, calculateMinorGridPositions } from '../../../src/utils/chartUtils';
+import { DATE_PADDING_MS, GRID_X_MINOR_DIVISIONS, GRID_Y_MINOR_DIVISIONS } from '../../../src/constants/ui';
 
 interface LegendItemProps {
   provider: { name: string; color: string };
@@ -295,6 +295,15 @@ export default function TelcoCapabilityIndex(): JSX.Element {
     return ticks;
   }, [yAxisDomain]);
 
+  // Minor gridline positions
+  const minorXTicks = useMemo(() => {
+    return calculateMinorGridPositions(quarterlyTicks, GRID_X_MINOR_DIVISIONS);
+  }, [quarterlyTicks]);
+
+  const minorYTicks = useMemo(() => {
+    return calculateMinorGridPositions(yAxisTicks, GRID_Y_MINOR_DIVISIONS);
+  }, [yAxisTicks]);
+
   // X-axis (date) domain
   const xAxisDomain = useMemo(() => {
     const dates = chartData.map((d) => d.releaseDate);
@@ -388,12 +397,6 @@ export default function TelcoCapabilityIndex(): JSX.Element {
               fillOpacity={1}
               stroke="none"
             />
-            <CartesianGrid
-              stroke="#e5e5e5"
-              strokeOpacity={0.8}
-              vertical={true}
-              horizontal={true}
-            />
             <XAxis
               type="number"
               dataKey="releaseDate"
@@ -450,6 +453,46 @@ export default function TelcoCapabilityIndex(): JSX.Element {
                 />
               </>
             )}
+            {/* Minor horizontal gridlines - lighter, rendered first */}
+            {minorYTicks.map((tick) => (
+              <ReferenceLine
+                key={`h-minor-${tick}`}
+                y={tick}
+                stroke="#e5e5e5"
+                strokeOpacity={0.5}
+                strokeWidth={0.5}
+              />
+            ))}
+            {/* Minor vertical gridlines - lighter */}
+            {minorXTicks.map((tick) => (
+              <ReferenceLine
+                key={`v-minor-${tick}`}
+                x={tick}
+                stroke="#e5e5e5"
+                strokeOpacity={0.5}
+                strokeWidth={0.5}
+              />
+            ))}
+            {/* Major horizontal gridlines - darker, rendered after */}
+            {yAxisTicks.map((tick) => (
+              <ReferenceLine
+                key={`h-major-${tick}`}
+                y={tick}
+                stroke="#d4d0c8"
+                strokeOpacity={0.7}
+                strokeWidth={1}
+              />
+            ))}
+            {/* Major vertical gridlines - darker */}
+            {quarterlyTicks.map((tick) => (
+              <ReferenceLine
+                key={`v-major-${tick}`}
+                x={tick}
+                stroke="#d4d0c8"
+                strokeOpacity={0.7}
+                strokeWidth={1}
+              />
+            ))}
             {/* Linear regression line */}
             {regressionData.length > 0 && (
               <Line
