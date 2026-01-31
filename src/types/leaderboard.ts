@@ -3,7 +3,7 @@
  */
 
 /**
- * Raw entry from the leaderboard Parquet file
+ * Raw entry from the leaderboard JSON file
  */
 export interface LeaderboardEntry {
   rank: number;
@@ -23,6 +23,7 @@ export interface LeaderboardEntry {
   teletables_stderr: number | null;
   tci: number | null;
   tci_stderr: number | null;
+  releaseDate?: string; // ISO date string from JSON (e.g., "2025-11-18")
 }
 
 /**

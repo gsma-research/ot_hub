@@ -14,7 +14,7 @@ import type { TCIDataPoint } from '../../../src/types/leaderboard';
 import { useLeaderboardData } from '../../../src/hooks/useLeaderboardData';
 import { useIsMobile } from '../../../src/hooks/useIsMobile';
 import { getProviderColor } from '../../../src/constants/providers';
-import { getModelReleaseDate, formatReleaseDate, formatQuarterTick } from '../../../src/constants/modelReleaseDates';
+import { formatMonthTick } from '../../../src/utils/dateFormatting';
 import ProviderIcon from '../../../src/components/ProviderIcon';
 import DateRangeSlider from './DateRangeSlider';
 import { fitLinearRegression, generateCombinedRegressionData } from '../../../src/utils/linearRegression';
@@ -262,7 +262,7 @@ export default function TelcoCapabilityIndex(): JSX.Element {
         telemath: entry.telemath,
         tsg: entry.tsg,
         teletables: entry.teletables,
-        releaseDate: getModelReleaseDate(entry.model),
+        releaseDate: entry.releaseDate ? new Date(entry.releaseDate).getTime() : Date.now(),
       }));
   }, [leaderboardData]);
 
@@ -296,15 +296,15 @@ export default function TelcoCapabilityIndex(): JSX.Element {
       1
     ).getTime();
 
-    // Generate quarter labels for slider
+    // Generate month labels for slider
     const quarters: { timestamp: number; label: string }[] = [];
     let current = new Date(minQuarterStart);
 
     while (current.getTime() <= maxQuarterEnd) {
-      const quarter = Math.floor(current.getMonth() / 3) + 1;
+      const month = current.toLocaleString('default', { month: 'short' });
       quarters.push({
         timestamp: current.getTime(),
-        label: `Q${quarter} ${current.getFullYear()}`,
+        label: `${month}. ${current.getFullYear()}`,
       });
       current.setMonth(current.getMonth() + 3);
     }
@@ -424,8 +424,20 @@ export default function TelcoCapabilityIndex(): JSX.Element {
     const params = fitLinearRegression(filteredChartData);
     if (!params) return [];
 
-    return generateCombinedRegressionData(filteredChartData, params, xAxisDomain[0], xAxisDomain[1], 50);
-  }, [filteredChartData, xAxisDomain]);
+    // Use filtered data's date range, not full xAxisDomain
+    const filteredDates = filteredChartData.map((d) => d.releaseDate);
+    const filteredMin = Math.min(...filteredDates);
+    const filteredMax = Math.max(...filteredDates);
+    const padding = 60 * 24 * 60 * 60 * 1000; // 60 days
+
+    return generateCombinedRegressionData(
+      filteredChartData,
+      params,
+      filteredMin - padding,
+      filteredMax + padding,
+      50
+    );
+  }, [filteredChartData]);
 
   // Check if any selection is active
   const hasSelection = selectedOrgs.size > 0 || selectedModels.size > 0 || dateRange !== null;
@@ -497,12 +509,13 @@ export default function TelcoCapabilityIndex(): JSX.Element {
               dataKey="releaseDate"
               domain={xAxisDomain}
               ticks={quarterlyTicks}
-              tickFormatter={formatQuarterTick}
+              tickFormatter={formatMonthTick}
               tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
               axisLine={{ stroke: '#d4d0c8' }}
               tickLine={false}
               scale="time"
               name="Release Date"
+              interval={0}
             />
             <YAxis
               type="number"

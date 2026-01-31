@@ -11,7 +11,7 @@ import {
 import type { LeaderboardEntry } from '../../../src/types/leaderboard';
 import { useLeaderboardData } from '../../../src/hooks/useLeaderboardData';
 import { BENCHMARKS, BENCHMARK_COLORS } from '../../../src/constants/benchmarks';
-import { getModelReleaseDate, formatQuarterTick } from '../../../src/constants/modelReleaseDates';
+import { formatMonthTick } from '../../../src/utils/dateFormatting';
 import BenchmarkCheckboxPanel from './BenchmarkCheckboxPanel';
 import DateRangeSlider from './DateRangeSlider';
 
@@ -40,7 +40,7 @@ function computeUnifiedFrontierData(
   }> = [];
 
   for (const entry of data) {
-    const releaseDate = getModelReleaseDate(entry.model);
+    const releaseDate = entry.releaseDate ? new Date(entry.releaseDate).getTime() : Date.now();
     const scores: Record<string, number> = {};
 
     for (const key of benchmarkKeys) {
@@ -209,7 +209,7 @@ export default function BenchmarksFrontierChart(): JSX.Element {
       };
     }
 
-    const dates = leaderboardData.map((d) => getModelReleaseDate(d.model));
+    const dates = leaderboardData.map((d) => d.releaseDate ? new Date(d.releaseDate).getTime() : Date.now());
     const rawMin = Math.min(...dates);
     const rawMax = Math.max(...dates);
 
@@ -229,15 +229,15 @@ export default function BenchmarksFrontierChart(): JSX.Element {
       1
     ).getTime();
 
-    // Generate quarter labels for slider
+    // Generate month labels for slider
     const quarters: { timestamp: number; label: string }[] = [];
     const current = new Date(minQuarterStart);
 
     while (current.getTime() <= maxQuarterEnd) {
-      const quarter = Math.floor(current.getMonth() / 3) + 1;
+      const month = current.toLocaleString('default', { month: 'short' });
       quarters.push({
         timestamp: current.getTime(),
-        label: `Q${quarter} ${current.getFullYear()}`,
+        label: `${month}. ${current.getFullYear()}`,
       });
       current.setMonth(current.getMonth() + 3);
     }
@@ -254,7 +254,7 @@ export default function BenchmarksFrontierChart(): JSX.Element {
     if (!dateRange) return leaderboardData;
     const [minSelected, maxSelected] = dateRange;
     return leaderboardData.filter((entry) => {
-      const releaseDate = getModelReleaseDate(entry.model);
+      const releaseDate = entry.releaseDate ? new Date(entry.releaseDate).getTime() : Date.now();
       return releaseDate >= minSelected && releaseDate <= maxSelected;
     });
   }, [leaderboardData, dateRange]);
@@ -274,7 +274,7 @@ export default function BenchmarksFrontierChart(): JSX.Element {
     if (leaderboardData.length === 0) {
       return [new Date('2023-01-01').getTime(), new Date('2026-01-01').getTime()];
     }
-    const dates = leaderboardData.map((d) => getModelReleaseDate(d.model));
+    const dates = leaderboardData.map((d) => d.releaseDate ? new Date(d.releaseDate).getTime() : Date.now());
     const minDate = Math.min(...dates);
     const maxDate = Math.max(...dates);
     // Add padding (2 months on each side)
@@ -286,7 +286,7 @@ export default function BenchmarksFrontierChart(): JSX.Element {
   const quarterlyTicks = useMemo(() => {
     if (leaderboardData.length === 0) return [];
 
-    const dates = leaderboardData.map((d) => getModelReleaseDate(d.model));
+    const dates = leaderboardData.map((d) => d.releaseDate ? new Date(d.releaseDate).getTime() : Date.now());
     const minDate = Math.min(...dates);
     const maxDate = Math.max(...dates);
 
@@ -353,12 +353,13 @@ export default function BenchmarksFrontierChart(): JSX.Element {
                 dataKey="releaseDate"
                 domain={xAxisDomain}
                 ticks={quarterlyTicks}
-                tickFormatter={formatQuarterTick}
+                tickFormatter={formatMonthTick}
                 tick={{ fontSize: 13, fill: '#5c5552', fontFamily: "'Inter', sans-serif" }}
                 axisLine={{ stroke: '#d4d0c8' }}
                 tickLine={false}
                 scale="time"
                 name="Release Date"
+                interval={0}
               />
               <YAxis
                 type="number"

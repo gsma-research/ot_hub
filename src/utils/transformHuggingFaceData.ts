@@ -89,6 +89,7 @@ export function transformHuggingFaceData(response: HuggingFaceResponse): Leaderb
       teletables_stderr,
       tci,
       tci_stderr,
+      releaseDate: row.date, // ISO date string from leaderboard JSON
     };
   });
 
